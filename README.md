@@ -12,7 +12,7 @@ AtGraph is a data visualization, analysis, and statistics software package for m
 
 ## Support
 
-Email questions, bug reports, and feature requests to was2be2gmail.com
+Email questions, bug reports, and feature requests to was2be@icloud.com
 
 
 ## Privacy Policy
