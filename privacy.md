@@ -6,4 +6,4 @@ AtGraph does not collect, transmit, or store personal information.
 
 All data remain on the user's computer. No data are transmitted to the developer.
 
-For support: was2be@icloud.com
+For support: At_Graph@icloud.com
