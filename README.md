@@ -1,13 +1,13 @@
-# AtGraph
+# @Graph
 
-AtGraph is a data visualization, analysis, and statistics software package for macOS.
+@Graph is a data visualization, analysis, and statistics software package for macOS.
 
 ## Features
 
 - Import multiple scientific data formats
 - Display data in a variety of graph and chart styles.
 - Perform data analysis and measurements. 
-- Conduct basic statistical analysis of data. 
+- Conduct statistical analysis of data. 
 - Export graphs, charts, and processed data
 
 ## Support
