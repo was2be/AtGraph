@@ -1,6 +1,6 @@
 # @Graph Privacy Policy
 
-Last updated: June 2026
+Last updated: August, 2026
 
 @Graph does not collect, transmit, or store personal information.
 
