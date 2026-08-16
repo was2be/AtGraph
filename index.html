@@ -1,10 +1,20 @@
+# Improved @Graph Website `index.html`
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="AtGraph is a macOS application for viewing, graphing, analyzing, and conducting statistics on scientific data, including electrophysiology and genomic and other research data formats.">
-  <title>@Graph</title>
+
+  <title>@Graph — Data Visualization, Analysis & Statistics for macOS</title>
+
+  <meta
+    name="description"
+    content="@Graph is a macOS application for scientific data visualization, analysis, and statistics, including electrophysiology, fluorescence microscopy, genomics, and other research data."
+  >
+
+  <link rel="canonical" href="https://atgraph.app/">
 
   <style>
     body {
@@ -21,21 +31,20 @@
       padding: 80px 24px;
     }
 
-    .hero {
+    header {
       text-align: center;
       padding-bottom: 60px;
     }
 
-    /* ✅ FIXED LOGO */
     .logo {
-      width: 240px;          /* prevents giant image */
-      max-width: 80%;        /* responsive safety */
-      height: auto;          /* keeps aspect ratio */
+      width: 240px;
+      max-width: 80%;
+      height: auto;
       display: block;
       margin: 0 auto 20px auto;
     }
 
-    .app-name {
+    h1 {
       font-size: 48px;
       font-weight: 700;
       letter-spacing: -0.02em;
@@ -68,6 +77,11 @@
       margin-bottom: 12px;
     }
 
+    h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
     p {
       font-size: 18px;
       color: #333;
@@ -86,9 +100,8 @@
       border-radius: 16px;
     }
 
-    .card h3 {
-      margin-top: 0;
-      font-size: 18px;
+    .card p {
+      margin-bottom: 0;
     }
 
     .footer {
@@ -96,6 +109,10 @@
       font-size: 14px;
       color: #888;
       text-align: center;
+    }
+
+    .footer a {
+      color: inherit;
     }
   </style>
 </head>
@@ -105,95 +122,151 @@
   <div class="container">
 
     <!-- HERO -->
-    <div class="hero">
-      <img class="logo" src="@Graph_Logo.png" alt="@Graph Logo">
+    <header>
+      <img
+        class="logo"
+        src="@Graph_Logo.png"
+        alt="@Graph logo"
+      >
 
-      <h1 class="app-name">@Graph</h1>
-      <p class="tagline">Data visualization, analysis, and statistics for macOS</p>
-      <a class="cta" href="mailto:At_Graph@icloud.com">Contact Support</a>
-    </div>
+      <h1>@Graph — Scientific Data Visualization, Analysis, and Statistics for macOS</h1>
 
-    <!-- ABOUT -->
-    <div class="section">
-      <h2>Overview</h2>
-      <p>
-        @Graph is a data visualization, analysis, and statistics application for macOS.
+      <p class="tagline">
+        Data visualization, analysis, and statistics for scientific research
       </p>
-    </div>
 
-    <!-- FEATURES -->
-    <div class="section">
-      <h2>Features</h2>
+      <a class="cta" href="mailto:At_Graph@icloud.com">
+        Contact Support
+      </a>
+    </header>
 
-      <div class="features">
-        <div class="card">
-          <h3>High-performance plotting</h3>
-          <p>Render large datasets smoothly with interactive graphs and charts.</p>
+    <main>
+
+      <!-- OVERVIEW -->
+      <section class="section" aria-labelledby="overview-heading">
+        <h2 id="overview-heading">Overview</h2>
+
+        <p>
+          @Graph is a macOS application for data visualization, analysis,
+          and statistics. It is designed for scientific research, including
+          electrophysiology, fluorescence microscopy, genomics, and other
+          experimental data.
+        </p>
+      </section>
+
+      <!-- FEATURES -->
+      <section class="section" aria-labelledby="features-heading">
+        <h2 id="features-heading">Features</h2>
+
+        <div class="features">
+
+          <article class="card">
+            <h3>High-performance plotting</h3>
+            <p>
+              Render large datasets smoothly with interactive graphs and charts.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Fluorescence microscopy analysis</h3>
+            <p>
+              Open time-series images, plot ROI values, and quantify changes
+              in fluorescence in one application.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Volcano plots, heatmaps, and Venn diagrams</h3>
+            <p>
+              Display and analyze omics data in a variety of formats.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Scientific file support</h3>
+            <p>
+              Import common research data formats, including electrophysiology
+              and genomics data.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Analysis tools</h3>
+            <p>
+              Process, measure, and display experimental data.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Statistics tools</h3>
+            <p>
+              @Graph automatically identifies and applies appropriate
+              statistical tests to your data.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>AI Assistant</h3>
+            <p>
+              Choose among several AI assistants to work with data using
+              plain English.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Native macOS application</h3>
+            <p>
+              Built with SwiftUI for a fast and modern Mac experience.
+            </p>
+          </article>
+
         </div>
+      </section>
 
-       <div class="card">
-          <h3>Image analysis for fluorescence microscopy </h3>
-          <p>Open time-series images, plot ROI values, and quantify changes in fluorescence all in one App.</p>
-        </div>
+      <!-- PRIVACY -->
+      <section class="section" aria-labelledby="privacy-heading">
+        <h2 id="privacy-heading">Privacy</h2>
 
-        <div class="card">
-          <h3>Volcano Plots, Heatmaps, and Venn Diagrams </h3>
-          <p>Display "omics" data in a vareity of formats.</p>
-        </div>
-        
-        <div class="card">
-          <h3>Scientific file support</h3>
-          <p>Import common research data formats, including electrophysiology and genomics data.</p>
-        </div>
+        <p>
+          <a href="https://atgraph.app/privacy">
+            Read the @Graph Privacy Policy
+          </a>
+        </p>
 
-        <div class="card">
-          <h3>Analysis tools</h3>
-          <p>Process, measure, and display experimental data.</p>
-        </div>
+        <p>
+          @Graph does not collect, transmit, or store personal information.
+        </p>
 
-        <div class="card">
-          <h3>Statistics tools</h3>
-          <p>@Graph Automatically identifies and applies appropriate statistical tests to your data.</p>
-        </div>
+        <p>
+          @Graph allows users to choose to use third-party artificial
+          intelligence services, including Anthropic, Google, OpenAI, and xAI.
+          When a user chooses to use one of these services using their own API
+          credentials, @Graph may transmit information selected by the user
+          to the corresponding service for processing.
+        </p>
+      </section>
 
-        <div class="card">
-          <h3>AI Assistant</h3>
-          <p>Choose among several AI Assistants to work with data in plain English.</p>
-        </div>
+      <!-- SUPPORT -->
+      <section class="section" aria-labelledby="support-heading">
+        <h2 id="support-heading">Support</h2>
 
-        <div class="card">
-          <h3>macOS native</h3>
-          <p>Built with SwiftUI for a fast and modern Mac experience.</p>
-        </div>
-      </div>
-    </div>
+        <p>
+          For bug reports, questions, or feature requests:
+          <br>
+          <a href="mailto:At_Graph@icloud.com">
+            At_Graph@icloud.com
+          </a>
+        </p>
+      </section>
 
-    <!-- PRIVACY -->
-    <div class="section">
-      <h2><a href="https://atgraph.app/privacy" target="_blank" rel="noopener noreferrer">Privacy</a></h2>
-      <p>
-        @Graph does not collect, transmit, or store personal information.
-      </p>
-      <p>
-        @Graph allows users to choose to use third-party artificial intelligence services, including from Anthropic, Google, OpenAI, and xAI. When a user chooses to use one of these services, using their own API credentials, AtGraph may transmit information selected by the user to the corresponding service for processing.
-      </p>
-    </div>
+    </main>
 
-    <!-- SUPPORT -->
-    <div class="section">
-      <h2>Support</h2>
-      <p>
-        For bug reports, questions, or feature requests:
-        <br>
-        <strong>At_Graph@icloud.com</strong>
-      </p>
-    </div>
-
-    <div class="footer">
+    <footer class="footer">
       © 2026 AtGraph. All rights reserved.
-    </div>
+    </footer>
 
   </div>
 
 </body>
 </html>
+```
