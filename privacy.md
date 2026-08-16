@@ -4,7 +4,7 @@ Last updated: August, 2026
 
 @Graph does not collect, transmit, or store personal information.
 
-@Graph allows users to choose to use third-party artificial intelligence services, including from Anthropic, OpenAI, Google, and xAI, to enhance the functionality of @Graph. When a user chooses to use one of these services, using their own API credentials, AtGraph may transmit information selected by the user, including user commands, questions, and/or screenshots of graphs or charts, to the corresponding service for analysis.
+@Graph allows users to choose to use third-party artificial intelligence services, including from Anthropic, OpenAI, Google, and xAI, to enhance the functionality of @Graph. When a user chooses to use one of these services, using their own API credentials, AtGraph may transmit information selected by the user, including user commands, questions, and/or screenshots of graphs or charts, to the corresponding service for analyses and/or processing.
 
 @Graph does not receive or store the user's third-party AI API credentials. API credentials are stored locally on the user's Mac using the macOS Keychain.
 
