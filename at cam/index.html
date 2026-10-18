@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>@Cam — Live Microscope Camera Imaging for macOS</title>
+  <meta
+    name="description"
+    content="@Cam by @Graph is a native macOS application for live view, measurement, and capture with microscope cameras, from research USB3 Vision and GigE Vision cameras to USB eyepiece cameras and webcams."
+  >
+  <link rel="canonical" href="https://atgraph.app/atcam">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --text: #1d1d1f;
+      --text-body: #333333;
+      --text-muted: #6e6e73;
+      --text-footer: #888888;
+      --card-bg: #f5f5f7;
+      --card-border: transparent;
+      --accent: #0071e3;
+      --link: #0071e3;
+      --cta-text: #ffffff;
+      --logo-shadow: drop-shadow(0 2px 6px rgba(0, 0, 0, .18));
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #1d1d1f;
+        --text: #f5f5f7;
+        --text-body: #d1d1d6;
+        --text-muted: #98989d;
+        --text-footer: #8e8e93;
+        --card-bg: #2c2c2e;
+        --card-border: #3a3a3c;
+        --accent: #0071e3;
+        --link: #4da3ff;
+        --cta-text: #ffffff;
+        --logo-shadow: drop-shadow(0 2px 10px rgba(0, 0, 0, .55));
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    header {
+      text-align: center;
+      padding-bottom: 24px;
+    }
+    main .section:first-of-type {
+      margin-top: 24px; /* overrides the default 80px just for Overview */
+    }
+    .logo {
+      width: 240px;
+      max-width: 80%;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px auto;
+      /* The icon has its own rounded shape; the shadow follows it. */
+      filter: var(--logo-shadow);
+    }
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .h1-subtitle {
+      display: block;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .tagline {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+    .cta {
+      margin-top: 24px;
+      display: inline-block;
+      padding: 12px 20px;
+      background: var(--accent);
+      color: var(--cta-text);
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .section {
+      margin-top: 80px;
+    }
+    h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    p {
+      font-size: 18px;
+      color: var(--text-body);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 20px;
+      border-radius: 16px;
+    }
+    .card p {
+      margin-bottom: 0;
+    }
+    .section a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .section a:hover {
+      text-decoration: underline;
+    }
+    .footer {
+      margin-top: 100px;
+      font-size: 14px;
+      color: var(--text-footer);
+      text-align: center;
+    }
+    .footer a {
+      color: inherit;
+    }
+    .footer .note {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 50px 20px;
+      }
+      h1 {
+        font-size: 38px;
+      }
+      .h1-subtitle {
+        font-size: 22px;
+      }
+      .tagline {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HERO -->
+    <header>
+      <img
+        class="logo"
+        src="@Cam_Logo.png"
+        alt="@Cam logo"
+      >
+      <h1>
+        @Cam<br>
+        <span class="h1-subtitle">
+          Live Microscope Camera Imaging for macOS
+        </span>
+      </h1>
+      <p class="tagline">
+        From specimen to calibrated, presentable images in a few clicks.
+      </p>
+      <!-- Replace the href with @Cam's TestFlight link (or its Mac App Store page). -->
+      <a class="cta" href="https://testflight.apple.com/join/REPLACE_ME" target="_blank" rel="noopener">
+        Public Beta Available - Join on TestFlight
+      </a>
+    </header>
+    <main>
+      <!-- OVERVIEW -->
+      <section class="section" aria-labelledby="overview-heading">
+        <h2 id="overview-heading">Overview</h2>
+        <p>
+          @Cam by <a href="https://atgraph.app/">@Graph</a> is a native macOS
+          application for live view, measurement, and capture with microscope
+          cameras. Connect a scientific camera or an inexpensive USB microscope
+          camera, and @Cam recognizes it, shows only the controls it actually
+          has, in plain language, and turns it into a complete imaging station.
+        </p>
+      </section>
+      <!-- FEATURES -->
+      <section class="section" aria-labelledby="features-heading">
+        <h2 id="features-heading">Features</h2>
+        <div class="features">
+          <article class="card">
+            <h3>Works with the cameras you have</h3>
+            <p>
+              USB3 Vision and GigE Vision cameras, USB microscope and eyepiece
+              cameras, webcams, the Mac's built-in camera, and iPhone through
+              Continuity Camera.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Only the controls your camera has</h3>
+            <p>
+              Exposure, gain, white balance, focus, resolution, and frame rate,
+              with friendly labels. Features a camera lacks stay out of the way.
+            </p>
+          </article>
+          <article class="card">
+            <h3>A clear, adjustable image</h3>
+            <p>
+              A live histogram with draggable black and white points and a
+              bendable curve, plus false-color tables, including an
+              emission-wavelength (λ) slider for fluorescence.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Corrections built in</h3>
+            <p>
+              Shading correction for uneven lighting, white balance from any
+              white or gray area, and rotation and flipping for eyepiece cameras.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Focus with confidence</h3>
+            <p>
+              A focus meter, focus peaking that highlights sharp edges, and
+              focus stacking for an all-in-focus image of thick specimens.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Measure and annotate</h3>
+            <p>
+              Calibrate once with a stage micrometer, then measure lengths,
+              angles, and areas in micrometers, count cells, and add labels
+              and arrows. Copy results into @Graph or @Stat.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Scale bar that's always right</h3>
+            <p>
+              A round-length scale bar calibrated for each camera, black or
+              white for contrast, and stored in raw TIFFs for ImageJ/Fiji.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Capture everything</h3>
+            <p>
+              Raw 8- or 16-bit TIFF or images as displayed, frame averaging,
+              time-lapse with movie and TIFF stack, and movies in H.264, HEVC,
+              or ProRes.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Two cameras at once</h3>
+            <p>
+              Side by side, picture in picture, or merged with a slider, such
+              as fluorescence over brightfield. Merge captured channels into
+              one color image.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Ready for the classroom</h3>
+            <p>
+              Present the live image full screen on a projector or second
+              display, with the scale bar and annotations.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Native for macOS</h3>
+            <p>
+              Built for Apple silicon, with smooth live view and a modern macOS
+              experience in Dark, Light, or System appearance.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Part of the @Graph family</h3>
+            <p>
+              From @Graph's makers: measurements paste straight into @Graph and
+              @Stat spreadsheets for analysis and charts.
+            </p>
+          </article>
+        </div>
+      </section>
+      <!-- PRIVACY -->
+      <section class="section" aria-labelledby="privacy-heading">
+        <h2 id="privacy-heading">Privacy Policy</h2>
+        <p>
+          @Cam does not collect, transmit, or store any user data. The live
+          image, your captures, and your measurements stay on your Mac.
+          Network access is used only to talk to GigE Vision cameras on your
+          local network.
+        </p>
+        <p>
+          <a href="https://atgraph.app/atcam/privacy/">
+            Read the @Cam Privacy Policy
+          </a>
+        </p>
+      </section>
+      <!-- SUPPORT -->
+      <section class="section" aria-labelledby="support-heading">
+        <h2 id="support-heading">Support</h2>
+        <p>
+          @Cam is developed by AtGraph LLC. For bug reports, questions, or feature requests:
+          <br>
+          <a href="mailto:Support@atgraph.app">
+            Support@atgraph.app
+          </a>
+        </p>
+      </section>
+    </main>
+    <!-- FOOTER -->
+    <footer class="footer">
+      © 2026 AtGraph LLC. All rights reserved.
+      <span class="note">
+        @Cam is an independent product, not affiliated with or endorsed by camera
+        or microscope manufacturers. All trademarks belong to their owners.
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
