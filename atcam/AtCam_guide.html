@@ -120,7 +120,7 @@ em { font-style: italic; }
 <li>Focus Aid: see Live View &amp; Display.</li>
 </ul>
 <h3>Two cameras</h3>
-<p>With a second camera attached, Camera tab › Two Cameras shows it with the main one: side by side, one above the other, picture in picture (inset size and corner adjustable) or merged, with a slider from camera 1 alone to camera 2 alone, as a cross-fade or added (for example fluorescence over brightfield). Camera 2 has its own color table and contrast, and its exposure and gain are set in the same section; the other tabs adjust the main camera. For camera 2's other settings (white balance, region, format), Swap Cameras makes it the main one: set them, then swap back. Its corrections are remembered. When merged, shift, size and rotation line the two up; Reset Alignment starts again. The alignment is remembered for the pair. Swap Cameras makes the second camera the main one.</p>
+<p>With a second camera attached, Camera tab › Two Cameras shows it with the main one: side by side, one above the other, picture in picture (inset size and corner adjustable) or merged, with a slider from camera 1 alone to camera 2 alone, as a cross-fade or added (for example fluorescence over brightfield). Camera 2 has its own color table and contrast, and its exposure and gain are set in the same section; the other tabs adjust the main camera. For camera 2's other settings (white balance, region, format), Swap Cameras makes it the main one: set them, then swap back. Its corrections are remembered. When merged, shift, size and rotation line the two up; Reset Alignment starts again. The alignment is remembered for the pair.</p>
 <p>The controls in the tabs adjust the main camera, which sits at the top left at full size, so measurements and the scale bar refer to it. Snapshots and movies record the combined image as displayed; with a raw format chosen, each camera's raw image is saved as well (_camera1, _camera2).</p>
 <h3>Trigger &amp; I/O (machine-vision cameras)</h3>
 <p>Set Trigger mode On and source Software, and the camera takes exactly one exposure each time you click Software Trigger; no cable is needed. Hardware triggers and strobe outputs use the camera's I/O port; the I/O Lines section lists each line as the camera reports it. To save one image per trigger pulse, run a time-lapse set to Every frame (Tools tab).</p>
@@ -142,13 +142,13 @@ em { font-style: italic; }
 </ul>
 <p>The Camera, Image and Trigger &amp; I/O tabs show the bridge's controls under the usual labels when the bridge uses the standard names (exposure time, gain, automatic modes, trigger mode, software trigger and so on); anything else is in the All Settings tab. The Info tab names the bridge.</p>
 <h3>Writing a bridge</h3>
-<p>The protocol is small: one TCP connection, messages that are a line of JSON (and, for frames, the pixels after it). The bridge describes the camera's controls once, answers each change with the value actually applied, and sends frames while @Cam asks for them. The full description, and a reference bridge in Python with a simulated camera to start from, come with @Cam in its Bridges folder (PROTOCOL.md and atcam_bridge.py).</p>
+<p>The protocol is small: one TCP connection, messages that are a line of JSON (and, for frames, the pixels after it). The bridge describes the camera's controls once, answers each change with the value actually applied, and sends frames while @Cam asks for them. The full description, and a reference bridge in Python with a simulated camera to start from, are in atcam-bridges.zip on the @Cam website (PROTOCOL.md and atcam_bridge.py).</p>
 <ul>
 <li>Run the reference bridge with python3 atcam_bridge.py: a simulated camera with exposure, gain, frame rate, a trigger and several pixel formats, for trying @Cam without hardware or testing a setup.</li>
 <li>To bridge a real camera, subclass its Camera class: list the controls, and return frames from the maker's software.</li>
 <li>Frames can be 8- or 16-bit monochrome, Bayer (@Cam converts them to color) or RGB.</li>
 </ul>
-<p class="tip">Bridges are also how Micro-Manager's camera adapters can reach @Cam: a bridge on pymmcore, Micro-Manager's Python interface, serves whatever camera Micro-Manager drives on that computer.</p>
+<p class="tip">Bridges are also how Micro-Manager's camera adapters can reach @Cam: a bridge on pymmcore, Micro-Manager's Python interface, can serve whatever camera Micro-Manager drives on that computer.</p>
 </section>
 <section class="page" id="live-view-display">
 <h2>Live View &amp; Display</h2>
@@ -230,10 +230,10 @@ em { font-style: italic; }
 <table>
 <thead><tr><th>Window</th><th>Save</th><th>Save As…</th><th>Export…</th></tr></thead>
 <tbody>
-<tr><td>Live image</td><td>—</td><td>—</td><td>The image as it is now, as displayed (PNG, TIFF or JPEG), with or without the scale bar and measurements; live view keeps running</td></tr>
+<tr><td>Live image</td><td>Not needed</td><td>Not needed</td><td>The image as it is now, as displayed (PNG, TIFF or JPEG), with or without the scale bar and measurements; live view keeps running</td></tr>
 <tr><td>Snapshot</td><td>In the format chosen in its window</td><td>Choose the name, folder and format</td><td>A copy as displayed</td></tr>
 <tr><td>Movie</td><td>Save the recording</td><td>Save a copy</td><td>Re-encode as H.264 (MP4), HEVC (MP4) or ProRes 422 (MOV)</td></tr>
-<tr><td>Opened image</td><td>— (the original is never changed)</td><td>A copy of its own values</td><td>A copy as displayed</td></tr>
+<tr><td>Opened image</td><td>Not needed: the original is never changed</td><td>A copy of its own values</td><td>A copy as displayed</td></tr>
 </tbody>
 </table>
 <h3>Frame averaging</h3>
@@ -386,9 +386,9 @@ em { font-style: italic; }
 <tr><td>The image is black or very dark</td><td>Check the light path and the camera port on the microscope; set Auto exposure on, or raise the exposure time or gain.</td></tr>
 <tr><td>The image is gray and flat</td><td>Display contrast: try Auto contrast, or drag the black and white points on the histogram. View tab › Display › Reset Display returns to the defaults.</td></tr>
 <tr><td>&quot;Waiting for the first image…&quot; and nothing comes</td><td>With Trigger mode On the camera waits for a trigger: click Software Trigger, or set Trigger mode Off (Trigger &amp; I/O tab).</td></tr>
-<tr><td>The image area says the pixel format can't be shown</td><td>The camera is set to a packed or color pixel format. Choose Mono8, Mono12 or Mono16 under Image tab › Format.</td></tr>
+<tr><td>The image area says the pixel format can't be shown</td><td>The camera is set to a packed pixel format. Choose another under Image tab › Format, which lists the formats @Cam can show.</td></tr>
 <tr><td>Saved raw TIFFs look dark</td><td>They keep the camera's 12-bit values in a 16-bit file. Turn on Scale 12-bit data to full 16-bit range, or adjust the display in Fiji.</td></tr>
-<tr><td>Low frame rate</td><td>Long exposures limit it, as does Auto exposure may lower the frame rate. Choose a lower resolution or binning, a smaller region of interest, or turn off Smooth live view and focus peaking.</td></tr>
+<tr><td>Low frame rate</td><td>Long exposures limit it, and Auto exposure may lower it. Choose a lower resolution or binning, a smaller region of interest, or turn off Smooth live view and focus peaking.</td></tr>
 <tr><td>Measurements are in pixels</td><td>Set the objective, adapter and pixel size in View › Scale Bar, or calibrate with a stage micrometer.</td></tr>
 <tr><td>A camera control is missing</td><td>@Cam shows only the controls a camera reports. Webcam-style cameras through macOS have only the automatic modes macOS offers.</td></tr>
 <tr><td>Mosaic tiles don't line up</td><td>Use manual exposure, overlap fields by about a third, and avoid fields of empty background.</td></tr>
