@@ -133,6 +133,31 @@
     .card p {
       margin-bottom: 0;
     }
+    .app-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .app-logo {
+      width: 64px;
+      height: 64px;
+      flex: none;
+      border-radius: 12.5%;
+      box-shadow: var(--logo-shadow);
+    }
+    .app-card h3 {
+      margin-bottom: 8px;
+    }
+    .app-card h3 a {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .app-card h3 a:hover {
+      text-decoration: underline;
+    }
+    .app-card p {
+      margin-top: 0;
+    }
     .footer {
       margin-top: 100px;
       font-size: 14px;
@@ -183,7 +208,7 @@
         <h2 id="overview-heading">Overview</h2>
         <p>
           @Graph is a macOS application for data visualization, analysis,
-          and statistics. Intuitive enough for students, powerfull enought for rigorous 
+          and statistics. Intuitive enough for students, powerful enough for rigorous 
           scientific research, including electrophysiology, fluorescence microscopy, omics, and other
           experimental data.
         </p>
@@ -250,6 +275,43 @@
             <p>
               Built for Apple silicon for an intuitive and modern macOS experience.
             </p>
+          </article>
+        </div>
+      </section>
+      <!-- USER GUIDE -->
+      <section class="section" aria-labelledby="guide-heading">
+        <h2 id="guide-heading">User Guide</h2>
+        <p>
+          Getting started, file formats, graphs and charts, statistics,
+          electrophysiology and imaging analysis, omics plots, the AI Assistant
+          and keyboard shortcuts: the complete
+          <a href="/AtGraph_guide.html">@Graph User Guide</a>, the same guide as
+          Help › @Graph User Guide in the app.
+        </p>
+      </section>
+      <!-- MORE APPS -->
+      <section class="section" aria-labelledby="apps-heading">
+        <h2 id="apps-heading">More Apps</h2>
+        <div class="features">
+          <article class="card app-card">
+            <img class="app-logo" src="/atstat/@Stat_Logo.png" alt="@Stat logo">
+            <div>
+              <h3><a href="/atstat/">@Stat</a></h3>
+              <p>
+                Just the statistics: a lightweight app with @Graph's rigorous
+                tests and elegant charts, without the full analysis suite.
+              </p>
+            </div>
+          </article>
+          <article class="card app-card">
+            <img class="app-logo" src="/atcam/@Cam_Logo.png" alt="@Cam logo">
+            <div>
+              <h3><a href="/atcam/">@Cam</a></h3>
+              <p>
+                Live microscope camera imaging: view, measure, and capture
+                with research cameras or inexpensive USB microscope cameras.
+              </p>
+            </div>
           </article>
         </div>
       </section>
