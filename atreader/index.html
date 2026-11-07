@@ -1,1 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>@Graph Reader — View @Graph &amp; Other Data Files for macOS</title>
+  <meta
+    name="description"
+    content="@Graph Reader is a free macOS app for opening and exploring @Graph documents, electrophysiology recordings, microscope images, and data tables. Zoom in, switch chart types, and see the data behind every figure."
+  >
+  <link rel="canonical" href="https://atgraph.app/atgraphreader/">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #ffffff;
+      --text: #1d1d1f;
+      --text-body: #333333;
+      --text-muted: #6e6e73;
+      --text-footer: #888888;
+      --card-bg: #f5f5f7;
+      --card-border: transparent;
+      --accent: #0071e3;
+      --link: #0071e3;
+      --cta-text: #ffffff;
+      --logo-shadow: 0 2px 6px rgba(0, 0, 0, .12);
+    }
 
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #1d1d1f;
+        --text: #f5f5f7;
+        --text-body: #d1d1d6;
+        --text-muted: #98989d;
+        --text-footer: #8e8e93;
+        --card-bg: #2c2c2e;
+        --card-border: #3a3a3c;
+        --accent: #0071e3;
+        --link: #4da3ff;
+        --cta-text: #ffffff;
+        --logo-shadow: 0 2px 10px rgba(0, 0, 0, .55);
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 80px 24px;
+    }
+    header {
+      text-align: center;
+      padding-bottom: 24px;
+    }
+    main .section:first-of-type {
+      margin-top: 24px; /* overrides the default 80px just for Overview */
+    }
+    .logo {
+      width: 240px;
+      max-width: 80%;
+      height: auto;
+      display: block;
+      margin: 0 auto 20px auto;
+      border-radius: 12.5%;
+      overflow: hidden;
+      box-shadow: var(--logo-shadow);
+    }
+    h1 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .h1-subtitle {
+      display: block;
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .tagline {
+      font-size: 20px;
+      color: var(--text-muted);
+      margin-top: 12px;
+    }
+    .cta {
+      margin-top: 24px;
+      display: inline-block;
+      padding: 12px 20px;
+      background: var(--accent);
+      color: var(--cta-text);
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .section {
+      margin-top: 80px;
+    }
+    h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+    h3 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+    p {
+      font-size: 18px;
+      color: var(--text-body);
+    }
+    p a {
+      color: var(--link);
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 20px;
+      border-radius: 16px;
+    }
+    .card p {
+      margin-bottom: 0;
+    }
+    /* File types: one card per kind of file, a name and its extensions per row. */
+    .formats {
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    }
+    .format-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .format-list li {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2px 12px;
+      padding: 6px 0;
+      font-size: 16px;
+      color: var(--text-body);
+    }
+    .format-list li + li {
+      border-top: 1px solid var(--card-border);
+    }
+    .ext {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .card .format-note {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .more-list {
+      font-size: 18px;
+      color: var(--text-body);
+      padding-left: 22px;
+    }
+    .more-list li {
+      margin-bottom: 6px;
+    }
+    .app-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .app-logo {
+      width: 64px;
+      height: 64px;
+      flex: none;
+      border-radius: 12.5%;
+      box-shadow: var(--logo-shadow);
+    }
+    .app-card h3 {
+      margin-bottom: 8px;
+    }
+    .app-card h3 a {
+      color: var(--link);
+      text-decoration: none;
+    }
+    .app-card h3 a:hover {
+      text-decoration: underline;
+    }
+    .app-card p {
+      margin-top: 0;
+    }
+    .footer {
+      margin-top: 100px;
+      font-size: 14px;
+      color: var(--text-footer);
+      text-align: center;
+    }
+    .footer a {
+      color: inherit;
+    }
+    .footer .note {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 50px 20px;
+      }
+      h1 {
+        font-size: 38px;
+      }
+      .h1-subtitle {
+        font-size: 22px;
+      }
+      .tagline {
+        font-size: 18px;
+      }
+      .formats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HERO -->
+    <header>
+      <img
+        class="logo"
+        src="/atgraphreader/@GraphReader_Logo.png"
+        alt="@Graph Reader logo"
+      >
+      <h1>
+        @Graph Reader<br>
+        <span class="h1-subtitle">
+          View @Graph &amp; Other Data Files on macOS
+        </span>
+      </h1>
+      <p class="tagline">
+        Free. Open a file, zoom in, and see exactly what&rsquo;s inside.
+      </p>
+      <a class="cta" href="https://apps.apple.com/app/id6832092193" target="_blank" rel="noopener">
+        Free on the Mac App Store
+      </a>
+    </header>
+    <main>
+      <!-- OVERVIEW -->
+      <section class="section" aria-labelledby="overview-heading">
+        <h2 id="overview-heading">Overview</h2>
+        <p>
+          @Graph Reader by <a href="https://atgraph.app/">@Graph</a> is the free,
+          easy way to open and explore files made with @Graph, along with the
+          recordings, microscope images, and data tables scientists use every day.
+          A figure from a colleague? A student&rsquo;s results? A recording from
+          the rig next door? Just open it and take a look.
+        </p>
+      </section>
+      <!-- FEATURES -->
+      <section class="section" aria-labelledby="features-heading">
+        <h2 id="features-heading">Features</h2>
+        <div class="features">
+          <article class="card">
+            <h3>See it exactly as it was saved</h3>
+            <p>
+              Graphs, charts, and images from @Graph open just as their author
+              saved them, with the same colors, labels, scale bars, and layout.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Zoom in on the details</h3>
+            <p>
+              Drag across a graph to zoom in, step through sweeps, and watch the
+              Y axis fit what&rsquo;s in view. Pinch, scroll, or drag to explore images.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Try a different view</h3>
+            <p>
+              Wonder how that bar chart would look as a box plot, a violin, or a
+              scatter? Switch any chart&rsquo;s type in one click.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Peek at the numbers</h3>
+            <p>
+              Open the spreadsheet behind any graph or chart, change a value, and
+              watch the figure follow. Edits are never saved.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Nothing changes by accident</h3>
+            <p>
+              The Reader only reads: your files always stay exactly as they are,
+              so it&rsquo;s safe to explore.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Native for macOS</h3>
+            <p>
+              Built for Apple silicon, with a modern macOS experience in Dark,
+              Light, or System appearance.
+            </p>
+          </article>
+        </div>
+      </section>
+      <!-- FILE TYPES -->
+      <section class="section" aria-labelledby="files-heading">
+        <h2 id="files-heading">Files It Opens</h2>
+        <div class="features formats">
+          <article class="card">
+            <h3>@Graph documents</h3>
+            <ul class="format-list">
+              <li><span>Graphs, charts, images, and spreadsheets saved by @Graph or @Stat</span><span class="ext">.@graph</span></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Text</h3>
+            <ul class="format-list">
+              <li><span>Plain and rich text</span><span class="ext">.txt .text .rtf</span></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Data files</h3>
+            <ul class="format-list">
+              <li><span>Axon pCLAMP</span><span class="ext">.abf .atf</span></li>
+              <li><span>AxoGraph</span><span class="ext">.axgx .axgd</span></li>
+              <li><span>Igor Pro</span><span class="ext">.pxp .h5xp .ibw</span></li>
+              <li><span>HEKA PatchMaster</span><span class="ext">.dat</span></li>
+              <li><span>MATLAB</span><span class="ext">.mat</span></li>
+              <li><span>HDF5 and NWB</span><span class="ext">.h5 .hdf5 .nwb</span></li>
+              <li><span>Neuralynx</span><span class="ext">.ncs .csc .nse .nst .ntt</span></li>
+              <li><span>Intan</span><span class="ext">.rhd .rhs</span></li>
+              <li><span>Open Ephys</span><span class="ext">.continuous .oebin</span></li>
+              <li><span>Blackrock</span><span class="ext">.ns1 to .ns6, .nev</span></li>
+              <li><span>Plexon</span><span class="ext">.plx</span></li>
+              <li><span>TDT</span><span class="ext">.tsq</span></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Images</h3>
+            <ul class="format-list">
+              <li><span>TIFF and OME-TIFF</span><span class="ext">.tif .tiff</span></li>
+              <li><span>Bruker Prairie View T-series</span><span class="ext">.xml</span></li>
+              <li><span>Zeiss</span><span class="ext">.czi .lsm</span></li>
+              <li><span>Nikon</span><span class="ext">.nd2</span></li>
+              <li><span>Leica</span><span class="ext">.lif</span></li>
+            </ul>
+            <p class="format-note">A folder of images opens as one image series.</p>
+          </article>
+          <article class="card">
+            <h3>Tables</h3>
+            <ul class="format-list">
+              <li><span>Comma- and tab-separated text</span><span class="ext">.csv .tsv</span></li>
+              <li><span>Excel</span><span class="ext">.xlsx</span></li>
+              <li><span>Numbers</span><span class="ext">.numbers</span></li>
+              <li><span>Stata</span><span class="ext">.dta</span></li>
+              <li><span>GraphPad Prism</span><span class="ext">.pzfx .prism</span></li>
+              <li><span>GCT expression matrices and CLS class labels</span><span class="ext">.gct .cls</span></li>
+              <li><span>Loom</span><span class="ext">.loom</span></li>
+              <li><span>AnnData</span><span class="ext">.h5ad</span></li>
+            </ul>
+            <p class="format-note">A workbook or project with several tables asks which one to open.</p>
+          </article>
+        </div>
+      </section>
+      <!-- MORE WITH @GRAPH -->
+      <section class="section" aria-labelledby="more-heading">
+        <h2 id="more-heading">Ready to Do More?</h2>
+        <p>
+          @Graph Reader shows you what&rsquo;s in a file. @Graph lets you do
+          something with it, and opens every file the Reader does:
+        </p>
+        <ul class="more-list">
+          <li>Analyze recordings and images, measure, and fit curves</li>
+          <li>Run rigorous statistics with effect sizes and confidence intervals</li>
+          <li>Design publication-quality figures and export them as vector SVG or PDF</li>
+          <li>Work alongside the built-in AI Assistant</li>
+        </ul>
+        <div class="features">
+          <article class="card app-card">
+            <img class="app-logo" src="/@Graph_Logo.png" alt="@Graph logo">
+            <div>
+              <h3><a href="/">@Graph</a></h3>
+              <p>
+                Intuitive data visualization, analysis, and statistics for macOS,
+                for students and researchers alike.
+              </p>
+            </div>
+          </article>
+          <article class="card app-card">
+            <img class="app-logo" src="/atstat/@Stat_Logo.png" alt="@Stat logo">
+            <div>
+              <h3><a href="/atstat/">@Stat</a></h3>
+              <p>
+                Just the statistics: @Graph&rsquo;s rigorous tests and elegant
+                charts in a lightweight app.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+      <!-- HELP -->
+      <section class="section" aria-labelledby="help-heading">
+        <h2 id="help-heading">Help</h2>
+        <p>
+          Help › @Graph Reader Help in the app explains how to open, zoom, and
+          explore files, and lists every file type the Reader opens.
+        </p>
+      </section>
+      <!-- PRIVACY -->
+      <section class="section" aria-labelledby="privacy-heading">
+        <h2 id="privacy-heading">Privacy Policy</h2>
+        <p>
+          @Graph Reader does not collect, transmit, or store any user data.
+          There&rsquo;s no account and no sign-in, and your files open on your
+          Mac and never leave it.
+        </p>
+        <p>
+          <a href="https://atgraph.app/atgraphreader/privacy/">
+            Read the @Graph Reader Privacy Policy
+          </a>
+        </p>
+      </section>
+      <!-- SUPPORT -->
+      <section class="section" aria-labelledby="support-heading">
+        <h2 id="support-heading">Support</h2>
+        <p>
+          @Graph Reader is developed by AtGraph LLC. For bug reports, questions, or feature requests:
+          <br>
+          <a href="mailto:Support@atgraph.app">
+            Support@atgraph.app
+          </a>
+        </p>
+      </section>
+    </main>
+    <!-- FOOTER -->
+    <footer class="footer">
+      © 2026 AtGraph LLC. All rights reserved.
+      <span class="note">
+        @Graph Reader is an independent product, not affiliated with or endorsed by
+        the makers of the file formats it opens. All trademarks belong to their owners.
+      </span>
+    </footer>
+  </div>
+</body>
+</html>
