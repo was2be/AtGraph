@@ -121,7 +121,7 @@ em { font-style: italic; }
 </ul>
 <h3>Two cameras</h3>
 <p>With a second camera attached, Camera tab › Two Cameras shows it with the main one: side by side, one above the other, picture in picture (inset size and corner adjustable) or merged, with a slider from camera 1 alone to camera 2 alone, as a cross-fade or added (for example fluorescence over brightfield). Camera 2 has its own color table and contrast, and its exposure and gain are set in the same section; the other tabs adjust the main camera. For camera 2's other settings (white balance, region, format), Swap Cameras makes it the main one: set them, then swap back. Its corrections are remembered. When merged, shift, size and rotation line the two up; Reset Alignment starts again. The alignment is remembered for the pair.</p>
-<p>The controls in the tabs adjust the main camera, which sits at the top left at full size, so measurements and the scale bar refer to it. Snapshots and movies record the combined image as displayed; with a raw format chosen, each camera's raw image is saved as well (_camera1, _camera2).</p>
+<p>The controls in the tabs adjust the main camera, which sits at the top left at full size, so measurements and the scale bar refer to it. Snapshots and movies record the combined image as displayed; with a raw format chosen, each camera's raw image is saved as well (_camera1, _camera2). A snapshot opened in a window to review offers only the as-displayed formats for the combined image, and saves each camera's raw image beside it whichever you choose; its Open in @Graph sends each camera's values.</p>
 <h3>Trigger &amp; I/O (machine-vision cameras)</h3>
 <p>Set Trigger mode On and source Software, and the camera takes exactly one exposure each time you click Software Trigger; no cable is needed. Hardware triggers and strobe outputs use the camera's I/O port; the I/O Lines section lists each line as the camera reports it. To save one image per trigger pulse, run a time-lapse set to Every frame (Tools tab).</p>
 <h3>Camera modes (INFINITY cameras)</h3>
@@ -171,11 +171,12 @@ em { font-style: italic; }
 <h2>Scale Bar &amp; Calibration</h2>
 <p>The scale turns pixels into µm for the scale bar, measurements, the eyepiece overlay and the scale saved in every image. It is set in View tab › Scale Bar from three numbers:</p>
 <ul>
-<li><em>Sensor pixel size</em>: the size of one pixel of the camera's sensor, from its data sheet (9.0 µm for the INFINITY8-2), or set by Calibrate. Remembered for each camera.</li>
+<li><em>Sensor pixel size</em>: the size of one pixel of the camera's sensor, from its data sheet (9.0 µm for the INFINITY8-2), or set by Calibrate. Remembered for each camera, and for a webcam-style camera for each resolution. A camera without one has no scale (see below).</li>
 <li><em>Objective</em>: its magnification. Pick a common one or type any value; for several lenses in a row type their combined magnification, and use 1× for a camera without a microscope objective.</li>
 <li><em>Camera adapter</em>: the magnification of the C-mount adapter between microscope and camera, often printed on it (e.g. 0.5×). Use 1× if there is no reducing optic.</li>
 </ul>
-<p>µm per image pixel = sensor pixel size × binning ÷ (objective × adapter).</p>
+<p>µm per image pixel = sensor pixel size × binning × decimation ÷ (objective × adapter), for each axis. When binning or decimation differs between the axes, the pixels aren't square: lengths and areas are then in pixels, angles are measured on the specimen, and saved images record the scale of each axis. An opened image with a scale for each axis is measured the same way, and Save a Copy keeps both scales. A webcam-style camera at a resolution not calibrated yet starts from another resolution's calibration, scaled by the widths, and says so; calibrate at each resolution you measure with.</p>
+<p>A camera @Cam hasn't had a pixel size for (a new camera, or any camera after @Cam › Settings › Cameras › Reset for All Cameras…) never takes another camera's. Its Sensor pixel size field says &quot;not set&quot;, no scale bar is drawn, measurements are in pixels, and its images are saved without a scale, with &quot;Scale=not calibrated&quot; in their description. Type the size from the camera's data sheet or calibrate, and it is remembered for that camera. For an INFINITY8-2, Use 9 µm (INFINITY8-2) sets its data-sheet value.</p>
 <h3>Calibrating with a stage micrometer</h3>
 <ol>
 <li>Put a stage micrometer (a slide with a ruled scale) under the microscope and focus on it.</li>
@@ -184,7 +185,7 @@ em { font-style: italic; }
 </ol>
 <p>@Cam works out the sensor pixel size from it, so the scale stays right when you change the objective setting. Check the calibration once against a stage micrometer even when you know the pixel size.</p>
 <h3>The scale bar</h3>
-<p>Show scale bar (⌘B) draws it on the live image, in a corner you choose. Bar length 0 picks a round length automatically. Color Auto draws black over a bright background and white over a dark one. The bar is burned into PNG, JPEG and as-displayed TIFF snapshots and movies; raw TIFFs and OME-TIFFs instead store the scale itself, which Fiji and QuPath read.</p>
+<p>Show scale bar (⌘B) draws it on the live image, in a corner you choose. An empty Bar length picks a round length automatically; a length longer than the image is replaced by the longest round length that fits, and the label always gives the length drawn. Color Auto draws black over a bright background and white over a dark one. The bar is burned into PNG, JPEG and as-displayed TIFF snapshots and movies. Once the camera's pixel size is set, every image @Cam saves also stores the scale itself, whether or not the bar is shown; Files, Metadata &amp; Other Apps lists where each format keeps it and which apps read it.</p>
 </section>
 <section class="page" id="image-corrections">
 <h2>Image Corrections</h2>
@@ -194,7 +195,7 @@ em { font-style: italic; }
 <ol>
 <li>Move to an empty, clean part of the slide (or take the slide out), with the light and objective as for your samples.</li>
 <li>Image tab › Shading Correction › Take Flat Field. @Cam averages 16 frames.</li>
-<li>Optionally, with the light off, Take Dark Frame to remove the camera's own background too.</li>
+<li>Optionally, with the light off, Take Dark Frame to remove the camera's own background too. It can come before or after the flat field: a flat field taken first is worked out again without the dark level.</li>
 </ol>
 <p>Take it again after changing the objective, the light or the resolution: a correction taken at another resolution isn't applied, and the section says so. The Correct shading switch turns it off and on; Clear removes it.</p>
 <h3>White balance from the image</h3>
@@ -209,22 +210,23 @@ em { font-style: italic; }
 <h3>Session notes</h3>
 <p>Capture tab › Session Notes: specimen, stain or label, operator and a note. They stay until you change them, and are saved in every image (its description, and the caption, keywords and author that Finder, Spotlight, Preview and Photos show) and in movies. Turn on Add specimen and stain to file names for names like Image_Liver_H-E_20261018_153000.tif.</p>
 <h3>After capture</h3>
-<p>Snapshots and movies either save automatically to the folder (Choose… picks it), named with the image or movie name plus the date and time, or open in their own window to review and save manually (with the format, scale bar and measurements chosen there). Closing such a window, or quitting, asks before an unsaved capture is discarded; quitting during a recording or time-lapse asks too, and finishes the file in the capture folder. Changing the region, binning or format while recording stops the recording, since the movie or stack can't take frames of another size. Time-lapse images always save to the folder. Camera › Show Captures in Finder shows the last one saved.</p>
+<p>Snapshots and movies either save automatically to the folder (Choose… picks it), named with the image or movie name plus the date and time, or open in their own window to review and save manually (with the format, scale bar and measurements chosen there). Closing such a window, or quitting, asks before an unsaved capture is discarded; quitting during a recording or time-lapse asks too, and finishes the file in the capture folder. So does choosing another camera during a recording, time-lapse, mosaic or focus stack; if the camera is unplugged during a mosaic or focus stack, @Cam offers to finish it from what was taken. If @Cam quits unexpectedly while a recording waits in its window, the next launch opens it again as a recovered movie to save; a recording cut short by the quit can't be played and is removed. Changing the region (Full Sensor and the centered regions too), binning, format or a preset while recording stops the recording, since the movie or stack can't take frames of another size. Time-lapse images always save to the folder. Camera › Show Captures in Finder shows the last one saved.</p>
 <h3>Formats</h3>
 <p>Each format says what it keeps: the camera values (what the sensor measured, for measuring) or the image as displayed (with your contrast settings, for showing), and whether it is lossless or compressed. Measure brightness only in a camera-values format.</p>
 <table>
 <thead><tr><th>Format</th><th>What it keeps</th></tr></thead>
 <tbody>
-<tr><td>TIFF – camera values, lossless</td><td>The camera's values (8 or 16-bit) with the scale as the image's resolution, for measuring in Fiji or @Graph. Nothing drawn on it.</td></tr>
-<tr><td>OME-TIFF – camera values, lossless</td><td>The camera's values with an OME-XML header: exact pixel size in µm, notes, objective, date, and the measurements and annotations as regions. Read directly by Fiji (Bio-Formats), QuPath, Python and @Graph.</td></tr>
+<tr><td>TIFF – camera values, lossless</td><td>The camera's values (8 or 16-bit) with the scale as the image's resolution (in pixels per centimeter) and the bit depth, for measuring in Fiji or @Graph. Nothing drawn on it.</td></tr>
+<tr><td>OME-TIFF – camera values, lossless</td><td>The camera's values with an OME-XML header: exact pixel size in µm, bit depth, notes, objective, the time it was taken, and the measurements and annotations as regions. Read directly by Fiji (Bio-Formats), QuPath, Python and @Graph.</td></tr>
 <tr><td>@Graph image – camera values, lossless</td><td>An @Graph document: opens in @Graph ready to measure, with the pixel size, bit depth and date; the specimen and stain name the image and its channel. Measurements and annotations are not included (use OME-TIFF for those). Opens only in @Graph, so keep an OME-TIFF too when others need the data.</td></tr>
 <tr><td>TIFF – as displayed, lossless</td><td>What you see: contrast, color table, scale bar, measurements and overlays burned in (8-bit).</td></tr>
 <tr><td>PNG – as displayed, lossless / JPEG – as displayed, compressed</td><td>The same, for slides, documents and the web.</td></tr>
 </tbody>
 </table>
-<p>Many 12-bit cameras deliver their data in 16-bit files, which look dark in most viewers; Scale 12-bit data to full 16-bit range brightens raw TIFFs while keeping every level.</p>
+<p>Camera values are saved exactly as the camera gave them: a 12-bit camera's values stay 0 to 4,095 in a 16-bit file, and each file records the bit depth. @Cam, @Graph and Fiji stretch the display when they open it; Preview and Finder thumbnails don't, so they show such images dark. The values are never rescaled, so two files from the same camera always compare.</p>
+<p>Bayer color cameras and webcam-style cameras deliver color that @Cam converts to 8 bits per color (Bayer: bilinear; webcams: as macOS decodes them, from compressed video at some resolutions). Their camera-values formats keep that converted color, and the format menu says so.</p>
 <h3>Open in @Graph</h3>
-<p>@Graph, from the makers of @Cam, measures and analyzes images: intensity over time, regions, particles. A snapshot window's Open in @Graph button opens the camera values there directly; Camera › Open Last Capture in @Graph opens the last TIFF, OME-TIFF, @Graph image or OME-TIFF stack saved to the folder.</p>
+<p>@Graph, from the makers of @Cam, measures and analyzes images: intensity over time, regions, particles. A snapshot window's Open in @Graph button opens the camera values there directly (with two cameras, each camera's); Camera › Open Last Capture in @Graph opens the last capture saved with camera values (TIFF – camera values, OME-TIFF, @Graph image or OME-TIFF stack; with two cameras, each camera's file). A capture saved as displayed doesn't take its place.</p>
 <h3>Save, Save As and Export</h3>
 <p>The File menu's Save (⌘S), Save As… (⇧⌘S) and Export… (⇧⌘E) work on the window in front, with the same names and keys as in @Graph and @Stat. Export… opens a sheet on that window, laid out as in @Graph and @Stat: choose the format (with the JPEG quality for JPEG), and whether to include the scale bar and the measurements and annotations, then click Export… to choose where to save it.</p>
 <table>
@@ -237,7 +239,7 @@ em { font-style: italic; }
 </tbody>
 </table>
 <h3>Frame averaging</h3>
-<p>Average 2 to 256 frames for each snapshot to reduce noise, e.g. for dim fluorescence. Keep the specimen still while it averages; a banner on the image shows the progress, and Cancel (or Esc) stops it.</p>
+<p>Average 2 to 256 frames for each snapshot to reduce noise, e.g. for dim fluorescence. Keep the specimen still while it averages; a banner on the image shows the progress, and Cancel (or Esc) stops it. The average is rounded to the camera's own levels, so the image stays in camera values and compares with single shots: averaging lowers the noise but adds no levels (an 8-bit camera's average is still 8-bit). The description records the number of frames.</p>
 <h3>Movies</h3>
 <p>Record (⌘R) makes one of two kinds of recording, chosen in the Capture tab's Movie section.</p>
 <table>
@@ -255,12 +257,13 @@ em { font-style: italic; }
 <section class="page" id="time-lapse-focus-stacks-merging">
 <h2>Time-lapse, Focus Stacks &amp; Merging</h2>
 <h3>Time-lapse</h3>
-<p>Tools tab › Time-lapse: an image at an interval (seconds or milliseconds), or one for every frame the camera delivers, for a number of images (0 = until stopped). Start or stop it there or with ⌘T. It uses the snapshot format and averaging. It can also make a movie of the images, at a speed you choose, and one multi-page TIFF that ImageJ and Fiji open as a stack; both are made when the time-lapse ends, in the same folder.</p>
+<p>Tools tab › Time-lapse: an image at an interval (seconds or milliseconds), or one for every frame the camera delivers, for a number of images (0 = until stopped). Start or stop it there or with ⌘T. It uses the snapshot format and averaging. It can also make a movie of the images, at a speed you choose, and one multi-page TIFF of them, an OME-TIFF that Fiji, QuPath and @Graph open as a time series with each image's time and the scale (ImageJ opens it as a stack); both are made when the time-lapse ends, in the same folder.</p>
 <p>An interval shorter than the camera's frame time, or Every frame, gives one image per frame, as fast as the camera and the disk allow; a frame is never saved twice, and frames @Cam can't keep up with (the disk, or rendering at high frame rates) are skipped and counted. With a hardware trigger (Trigger &amp; I/O tab › Trigger mode On, a line as the source), Every frame saves one image per pulse. For every frame in one file, record an OME-TIFF stack instead.</p>
+<p>While a time-lapse or a recording runs, @Cam keeps the Mac from sleeping when idle and from pausing @Cam in the background. Each image's description records its number and its time from the start, which includes any time the Mac spent asleep (closing the lid or choosing Sleep still puts it to sleep). An interval that passes without an image (the Mac was asleep or busy, there was no new frame, or the last shot was still averaging) is counted as missed, and the count shows in the Tools tab and when the time-lapse ends, which also says how many of them fell while the Mac was asleep. If an image can't be saved (a full disk, say), the time-lapse stops and @Cam says why, with the space left in the folder; an OME-TIFF stack recording stops the same way, keeping the frames recorded before it with their times.</p>
 <h3>Focus stack (extended depth of field)</h3>
 <p>For specimens thicker than the depth of focus: Start Focus Stack (⇧⌘F, or the Tools tab), turn the fine focus slowly through the whole depth while @Cam collects frames, then Finish (⇧⌘F again). Each part of the result comes from the frame where it was sharpest. Keep the stage still. The result is saved like a snapshot.</p>
 <h3>Merge Channels</h3>
-<p>Combines channels into one color image, for fluorescence channels taken one after another, or fluorescence over brightfield. Add Current Image as Channel, change the filter, add the next; in the Merge Channels window each channel gets a color (or an emission wavelength) and its own levels, and the result can be saved as PNG or TIFF, with the scale bar if it is on. All channels must have the same resolution.</p>
+<p>Combines channels into one color image, for fluorescence channels taken one after another, or fluorescence over brightfield. Add Current Image as Channel, change the filter, add the next; in the Merge Channels window each channel gets a color (or an emission wavelength) and its own levels, and the result can be saved as PNG or TIFF, with the scale bar if it is on. The file records the scale the channels were taken at, bar or not; channels taken at different scales (another binning, say) leave it uncalibrated. All channels must have the same resolution.</p>
 </section>
 <section class="page" id="mosaics-stitching">
 <h2>Mosaics (Stitching)</h2>
@@ -272,13 +275,14 @@ em { font-style: italic; }
 <li>When the outline is green, click Add Tile (or press ⇧⌘M). Go along a row, then down a little and back, overlapping each new field with the tiles beside and above it.</li>
 <li>Click Finish. @Cam aligns every overlapping pair to the pixel, places the tiles, evens out brightness differences and blends the seams. The mosaic is saved like a snapshot, with the scale.</li>
 </ol>
+<p>Evening out brightness multiplies each tile's values by a gain between 0.5 and 2, so that the overlaps match; values pushed above the camera's full scale are clipped. The gains are written in the file's description, in the order the tiles were taken (MosaicGains=1.000,0.930,…). For intensity measurements across the mosaic, use manual exposure and a flat field so the gains stay near 1, and check them in the description.</p>
 <ul>
 <li>Add tiles automatically when the stage stops (Tools tab) adds a tile whenever the stage rests for a moment on new ground that still overlaps.</li>
 <li>Undo removes the last tile; Cancel ends the mosaic without saving.</li>
 <li>If the outline turns red and says Lost, move back over part already taken: @Cam finds the field again.</li>
 </ul>
 <p class="tip">Overlaps need detail to line up: a field of empty glass or plain background can't be placed. Move on to where there is some structure, and the mosaic carries on.</p>
-<p>The mosaic keeps the camera's raw values (8 or 16-bit, or color). It can be very large: each tile is a full camera frame, so many tiles at full resolution take a lot of memory, and a mosaic holds up to 400 tiles. Use binning or a lower resolution for large areas.</p>
+<p>The mosaic keeps the camera's raw values (8 or 16-bit, or color), times each tile's gain. It can be very large: each tile is a full camera frame, so many tiles at full resolution take a lot of memory, and a mosaic holds up to 400 tiles. Use binning or a lower resolution for large areas.</p>
 </section>
 <section class="page" id="measuring-annotating">
 <h2>Measuring &amp; Annotating</h2>
@@ -315,12 +319,12 @@ em { font-style: italic; }
 </section>
 <section class="page" id="opening-saved-images">
 <h2>Opening Saved Images</h2>
-<p>File › Open File… (⌘O) opens saved TIFF, PNG or JPEG images (also OME-TIFF), to adjust levels and color tables and to measure, count and annotate them as on the live image. 16-bit images keep their full values.</p>
+<p>File › Open File… (⌘O) opens saved TIFF, PNG or JPEG images (also OME-TIFF), to adjust levels and color tables and to measure, count and annotate them as on the live image. 16-bit images keep their full values. Grayscale and RGB images are read as the file stores them, whatever color profile they carry (Adobe RGB, Display P3, linear gray), so the values match Fiji's; 16-bit color images are rounded to 8 bits per color.</p>
 <p>A stack, such as an OME-TIFF recording from @Cam, opens with a Frame slider in the Image section: step through its frames with the slider or the arrows beside it. The frame's time from the start of the recording is shown when the file has it. The display settings, scale, measurements and annotations stay as they are from frame to frame.</p>
 <p>Movies (MOV or MP4, such as @Cam's own recordings) open in a movie window to play, with Export… to re-encode them.</p>
 <p>File › Open Recent lists the files opened, saved and exported most recently. Files also open by dropping them on any @Cam window or on its Dock icon, or from Finder with Open With › @Cam (@Cam is offered for images and movies but never made their default app). Several images open together, in the order given, as tabs of one image window, kept apart from the live camera window; Settings › General › Open files chooses tabs or separate windows, as in @Graph and @Stat. A file @Cam can't open is named in a note rather than ignored.</p>
 <ul>
-<li>The scale comes from the file (@Cam's description, the OME-XML pixel size, or the image's resolution). If it has none, turn on Calibrated and type it.</li>
+<li>The scale comes from the file: the OME-XML pixel size, else the image's resolution, else @Cam's description (&quot;Scale=…&quot;), the most exact first. If it has none, turn on Calibrated and type it.</li>
 <li>Session notes saved with the image are shown.</li>
 <li>Export… (File › Export…, ⇧⌘E) writes a copy as displayed (PNG, TIFF or JPEG) with the levels and color table, and, as you choose, the scale bar and the measurements and annotations burned in.</li>
 <li>Save As… (File › Save As…, ⇧⌘S) writes a copy of the image's own values: OME-TIFF (with the scale, notes, and the measurements and annotations as regions of interest, for Fiji, QuPath or @Graph), TIFF, or an @Graph image. For a stack, it writes the frame shown. Closing the window with measurements that haven't been saved this way asks first.</li>
@@ -329,13 +333,27 @@ em { font-style: italic; }
 </section>
 <section class="page" id="files-metadata-other-apps">
 <h2>Files, Metadata &amp; Other Apps</h2>
-<p>Every image @Cam saves records how it was taken: the camera, exposure, gain, the corrections applied, the calibration (&quot;Scale=… µm/px&quot;), the objective and the session notes, in the image's description. The notes are also in the standard caption, keywords and author fields that Finder, Spotlight, Preview and Photos read.</p>
+<p>Every image @Cam saves records how it was taken: the camera, exposure, gain, the corrections applied, the calibration (&quot;Scale=… µm/px&quot;, or &quot;Scale=not calibrated&quot; when the camera's pixel size isn't set), the objective and the session notes, in the image's description. The notes are also in the standard caption, keywords and author fields that Finder, Spotlight, Preview and Photos read.</p>
+<h3>Where each format keeps the scale</h3>
+<table>
+<thead><tr><th>Format</th><th>The scale is kept as</th><th>In @Graph</th></tr></thead>
+<tbody>
+<tr><td>TIFF (camera values or as displayed), merged channels as TIFF</td><td>The resolution in pixels per centimeter, across and down, and &quot;Scale=&quot; in the description</td><td>Opens with the scale</td></tr>
+<tr><td>OME-TIFF, OME-TIFF stack</td><td>The pixel size in µm in the OME-XML, and the resolution</td><td>Opens with the scale; a stack with each frame's time</td></tr>
+<tr><td>Time-lapse TIFF stack</td><td>The pixel size in the OME-XML, with each image's time, and the resolution</td><td>Opens with the scale and the times</td></tr>
+<tr><td>Time-lapse images (a folder)</td><td>Each image as its format keeps it</td><td>The folder opens as a time series, with the first image's scale and bit depth</td></tr>
+<tr><td>@Graph image</td><td>The pixel size, across and down</td><td>Opens with the scale</td></tr>
+<tr><td>PNG, JPEG</td><td>The resolution in pixels per inch, and &quot;Scale=&quot; in the description</td><td>Not opened</td></tr>
+<tr><td>Movies</td><td>&quot;Scale=&quot; in the movie's description</td><td>Not opened</td></tr>
+</tbody>
+</table>
+<p>@Cam itself reads the scale back from any of its images: the OME-XML first, then the resolution, then the description.</p>
 <table>
 <thead><tr><th>App</th><th>Use</th></tr></thead>
 <tbody>
-<tr><td>Fiji / ImageJ</td><td>Raw TIFFs open with the scale (Fiji in µm; plain ImageJ in inches, change it in Image › Properties). OME-TIFFs open through Bio-Formats with the scale; its Display ROIs option shows the measurements.</td></tr>
+<tr><td>Fiji / ImageJ</td><td>TIFFs open with the scale. OME-TIFFs and the time-lapse stack open through Bio-Formats with the scale (and the stack with each image's time); its Display ROIs option shows the measurements.</td></tr>
 <tr><td>QuPath</td><td>OME-TIFFs open with the pixel size.</td></tr>
-<tr><td>@Graph</td><td>Part of the same @ suite. Opens TIFFs, OME-TIFFs (single images and timestamped stacks) and @Graph images with their scale; Open in @Graph sends a capture there directly. Copy and Export CSV from the Measure &amp; Annotate tab paste straight into @Graph.</td></tr>
+<tr><td>@Graph</td><td>Part of the same @ suite. Opens TIFFs, OME-TIFFs (single images and timestamped stacks), time-lapse stacks and folders, and @Graph images with their scale and bit depth; Open in @Graph sends a capture there directly. Copy and Export CSV from the Measure &amp; Annotate tab paste straight into @Graph.</td></tr>
 <tr><td>@Stat</td><td>Also part of the @ suite: statistics on the measurements, with estimation plots and effect sizes.</td></tr>
 <tr><td>Numbers, Excel</td><td>Copy or Export CSV of measurements and profiles.</td></tr>
 </tbody>
@@ -352,7 +370,7 @@ em { font-style: italic; }
 <tr><td>Start Recording / Stop Recording</td><td>Records a movie of the live image / stops and saves it.</td></tr>
 <tr><td>Start Time-lapse / Stop Time-lapse</td><td>With the interval and number of images set in the Tools tab.</td></tr>
 <tr><td>Set Live View</td><td>Turns live view on or off.</td></tr>
-<tr><td>Select Camera</td><td>Opens the attached camera whose name contains the text given (e.g. FaceTime, or a camera's model).</td></tr>
+<tr><td>Select Camera</td><td>Opens the attached camera whose name contains the text given (e.g. FaceTime, or a camera's model). While a recording, time-lapse, mosaic or focus stack runs, it stops with a message instead of ending it.</td></tr>
 </tbody>
 </table>
 <p>For example, a shortcut can select a camera, turn live view on and take a snapshot, run from the menu bar, a keyboard shortcut or a schedule.</p>
@@ -387,16 +405,16 @@ em { font-style: italic; }
 <tr><td>The image is gray and flat</td><td>Display contrast: try Auto contrast, or drag the black and white points on the histogram. View tab › Display › Reset Display returns to the defaults.</td></tr>
 <tr><td>&quot;Waiting for the first image…&quot; and nothing comes</td><td>With Trigger mode On the camera waits for a trigger: click Software Trigger, or set Trigger mode Off (Trigger &amp; I/O tab).</td></tr>
 <tr><td>The image area says the pixel format can't be shown</td><td>The camera is set to a packed pixel format. Choose another under Image tab › Format, which lists the formats @Cam can show.</td></tr>
-<tr><td>Saved raw TIFFs look dark</td><td>They keep the camera's 12-bit values in a 16-bit file. Turn on Scale 12-bit data to full 16-bit range, or adjust the display in Fiji.</td></tr>
+<tr><td>Saved raw TIFFs look dark</td><td>They keep the camera's 12-bit values in a 16-bit file, which Preview and Finder thumbnails show dark. @Cam, @Graph and Fiji stretch them when they open them.</td></tr>
 <tr><td>Low frame rate</td><td>Long exposures limit it, and Auto exposure may lower it. Choose a lower resolution or binning, a smaller region of interest, or turn off Smooth live view and focus peaking.</td></tr>
-<tr><td>Measurements are in pixels</td><td>Set the objective, adapter and pixel size in View › Scale Bar, or calibrate with a stage micrometer.</td></tr>
+<tr><td>Measurements are in pixels</td><td>Set the objective, adapter and pixel size in View tab › Scale Bar, or calibrate with a stage micrometer. A camera whose pixel size isn't set measures in pixels and saves no scale.</td></tr>
 <tr><td>A camera control is missing</td><td>@Cam shows only the controls a camera reports. Webcam-style cameras through macOS have only the automatic modes macOS offers.</td></tr>
 <tr><td>Mosaic tiles don't line up</td><td>Use manual exposure, overlap fields by about a third, and avoid fields of empty background.</td></tr>
 </tbody>
 </table>
 <p>Info tab › Maintenance has Refresh Settings (reads every control from the camera again), Restore Camera Defaults for webcam-style cameras that offer it, and Reset Camera for machine-vision cameras, which reboots the camera; it reconnects by itself.</p>
 <h3>Reporting a problem</h3>
-<p>Help › Report a Problem… and Request a Feature… open an email to support@atgraph.app in your mail app, with @Cam's version, your Mac and macOS version, and the open camera (not its serial number) filled in. You review it and send it yourself. For a camera that doesn't work as expected, Help › Save Camera Report… saves everything the camera reports about itself (its controls, their values and ranges) to a text file; attach it to the email. It is how support for a new camera is added.</p>
+<p>Help › Report a Problem… and Request a Feature… open an email to support@atgraph.app in your mail app, with @Cam's version, your Mac and macOS version, and the open camera (not its serial number or the name set in it) filled in. You review it and send it yourself. For a camera that doesn't work as expected, Help › Save Camera Report… saves everything the camera reports about itself (its controls, their values and ranges) to a text file, leaving out its serial number, the name set in it and network addresses; attach it to the email. It is how support for a new camera is added.</p>
 </section>
 <section class="page" id="keyboard-shortcuts">
 <h2>Keyboard Shortcuts</h2>
