@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
-  <title>@Graph Reader — View @Graph &amp; Other Data Files for macOS</title>
+  <title>@Graph Reader — View @Graph &amp; Other Data Files on Mac, iPhone, and iPad</title>
   <meta
     name="description"
-    content="@Graph Reader is a free macOS app for opening and exploring @Graph documents, electrophysiology recordings, microscope images, and data tables. Zoom in, switch chart types, and see the data behind every figure."
+    content="@Graph Reader is a free app for Mac, iPhone, and iPad for opening and exploring @Graph documents, electrophysiology recordings, microscope images, and data tables. Zoom in, switch chart types, and see the data behind every figure."
   >
   <link rel="canonical" href="https://atgraph.app/atreader/">
   <style>
@@ -89,8 +89,14 @@
       color: var(--text-muted);
       margin-top: 12px;
     }
-    .cta {
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
       margin-top: 24px;
+    }
+    .cta {
       display: inline-block;
       padding: 12px 20px;
       background: var(--accent);
@@ -241,15 +247,21 @@
       <h1>
         @Graph Reader<br>
         <span class="h1-subtitle">
-          View @Graph &amp; Other Data Files on macOS
+          View @Graph &amp; Other Data Files on Mac, iPhone, and iPad
         </span>
       </h1>
       <p class="tagline">
         Free. Open a file, zoom in, and see exactly what&rsquo;s inside.
       </p>
-      <a class="cta" href="https://https://testflight.apple.com/join/SvGkpV8r" target="_blank" rel="noopener">
-        Public Beta Available - Join on TestFlight
-      </a>
+      <p class="tagline">Public betas are available on TestFlight.</p>
+      <div class="cta-row">
+        <a class="cta" href="https://testflight.apple.com/join/SvGkpV8r" target="_blank" rel="noopener">
+          Mac Beta &ndash; Join on TestFlight
+        </a>
+        <a class="cta" href="https://testflight.apple.com/join/8jfndB4m" target="_blank" rel="noopener">
+          iPhone &amp; iPad Beta &ndash; Join on TestFlight
+        </a>
+      </div>
        <!--
       <a class="cta" href="https://apps.apple.com/app/id6832092193" target="_blank" rel="noopener">
         Free on the Mac App Store
@@ -311,10 +323,10 @@
             </p>
           </article>
           <article class="card">
-            <h3>Native for macOS</h3>
+            <h3>Native for Mac, iPhone, and iPad</h3>
             <p>
-              Built for Apple silicon, with a modern macOS experience in Dark,
-              Light, or System appearance.
+              Built for Apple silicon Macs, iPhone, and iPad, with a modern
+              experience on each in Dark, Light, or System appearance.
             </p>
           </article>
         </div>
@@ -419,8 +431,9 @@
       <section class="section" aria-labelledby="help-heading">
         <h2 id="help-heading">Help</h2>
         <p>
-          Help › @Graph Reader Help in the app explains how to open, zoom, and
-          explore files, and lists every file type the Reader opens.
+          Help › @Graph Reader Help on the Mac, or Help and Settings on iPhone
+          and iPad, explains how to open, zoom, and explore files, and lists
+          every file type the Reader opens.
         </p>
       </section>
       <!-- PRIVACY -->
@@ -429,7 +442,7 @@
         <p>
           @Graph Reader does not collect, transmit, or store any user data.
           There&rsquo;s no account and no sign-in, and your files open on your
-          Mac and never leave it.
+          Mac, iPhone, or iPad and never leave it.
         </p>
         <p>
           <a href="https://atgraph.app/atreader/privacy/">
