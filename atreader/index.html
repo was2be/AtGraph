@@ -296,7 +296,7 @@
             <h3>Open a wide variety of data files</h3>
             <p>
               Data from Axon, HEKA, Igor Pro, Intan, Open Ephys, and more;
-              Zeiss, Nikon, and Leica images; Excel, Numbers, and Prism tables.
+              Zeiss, Nikon, and Leica images, and ordinary photos; Excel, Numbers, and Prism tables.
               <a href="#files-heading">See every file type</a>.
             </p>
           </article>
@@ -338,70 +338,119 @@
           <article class="card">
             <h3>@Graph documents</h3>
             <ul class="format-list">
-              <li><span>Graphs, charts, images, and spreadsheets saved by @Graph or @Stat</span><span class="ext">.@graph</span></li>
+              <li><span>Graphs, charts, images and spreadsheets saved by @Graph or @Stat</span><span class="ext">.@graph</span></li>
             </ul>
           </article>
           <article class="card">
-            <h3>Text</h3>
+            <h3>Tables and text</h3>
             <ul class="format-list">
-              <li><span>Plain and rich text</span><span class="ext">.txt .text .rtf</span></li>
+              <li><span>Apache Arrow and Feather</span><span class="ext">.arrow .feather .arrows</span></li>
+              <li><span>Apache Parquet</span><span class="ext">.parquet</span></li>
+              <li><span>Comma- and tab-separated text</span><span class="ext">.csv .tsv</span></li>
+              <li><span>Excel</span><span class="ext">.xlsx .xls</span></li>
+              <li><span>JSON and JSON Lines</span><span class="ext">.json .jsonl .ndjson</span></li>
+              <li><span>Numbers</span><span class="ext">.numbers</span></li>
+              <li><span>Plain text</span><span class="ext">.txt .text</span></li>
+              <li><span>Rich text (its text)</span><span class="ext">.rtf</span></li>
             </ul>
+            <p class="format-note">A workbook with several sheets asks which ones to open.</p>
           </article>
           <article class="card">
-            <h3>Data files</h3>
+            <h3>Statistics programs</h3>
             <ul class="format-list">
-              <li><span>Axon (pCLAMP)</span><span class="ext">.abf .atf</span></li>
-              <li><span>AxoGraph</span><span class="ext">.axgx .axgd</span></li>
+              <li><span>GraphPad Prism</span><span class="ext">.pzfx .prism</span></li>
+              <li><span>SAS transport</span><span class="ext">.xpt</span></li>
+              <li><span>SPSS</span><span class="ext">.sav .zsav</span></li>
+              <li><span>Stata</span><span class="ext">.dta</span></li>
+            </ul>
+            <p class="format-note">A Prism project with several data tables asks which ones to open.</p>
+          </article>
+          <article class="card">
+            <h3>General science</h3>
+            <ul class="format-list">
+              <li><span>HDF5</span><span class="ext">.h5 .hdf5</span></li>
               <li><span>Igor Pro</span><span class="ext">.pxp .h5xp .ibw</span></li>
-              <li><span>HEKA PatchMaster</span><span class="ext">.dat</span></li>
-              <li><span>MATLAB (and LabChart&rsquo;s MATLAB export)</span><span class="ext">.mat</span></li>
-              <li><span>HDF5 and NWB</span><span class="ext">.h5 .hdf5 .nwb</span></li>
-              <li><span>Neuralynx</span><span class="ext">.ncs .csc .nse .nst .ntt</span></li>
-              <li><span>Intan</span><span class="ext">.rhd .rhs</span></li>
-              <li><span>Open Ephys</span><span class="ext">.continuous .oebin</span></li>
-              <li><span>Blackrock</span><span class="ext">.ns1 to .ns6, .nev</span></li>
-              <li><span>Plexon</span><span class="ext">.plx</span></li>
-              <li><span>TDT</span><span class="ext">.tsq</span></li>
-              <li><span>EDF and BDF</span><span class="ext">.edf .bdf</span></li>
-              <li><span>PhysioNet WFDB</span><span class="ext">.hea</span></li>
               <li><span>LabVIEW TDMS</span><span class="ext">.tdms</span></li>
-              <li><span>Spike2</span><span class="ext">.smr</span></li>
-              <li><span>BIOPAC AcqKnowledge</span><span class="ext">.acq</span></li>
-              <li><span>FITS spectra and tables</span><span class="ext">.fits .fit .fts</span></li>
+              <li><span>MATLAB</span><span class="ext">.mat</span></li>
+              <li><span>NetCDF</span><span class="ext">.nc .nc4 .cdf</span></li>
+              <li><span>NumPy arrays</span><span class="ext">.npy .npz</span></li>
             </ul>
-            <p class="format-note">Data kept in several files (Open Ephys, TDT, Intan, Neuralynx, PhysioNet WFDB, and others) may ask for access to its folder as it opens, as may an Analyze .hdr/.img image pair.</p>
+            <p class="format-note">A NetCDF file&rsquo;s variables open as tables: those along one dimension together, each 2-D variable on its own.</p>
           </article>
           <article class="card">
-            <h3>Images</h3>
+            <h3>Microscopy and imaging</h3>
             <ul class="format-list">
-              <li><span>TIFF and OME-TIFF</span><span class="ext">.tif .tiff</span></li>
+              <li><span>Bitplane Imaris</span><span class="ext">.ims</span></li>
               <li><span>Bruker Prairie View T-series</span><span class="ext">.xml</span></li>
-              <li><span>Zeiss</span><span class="ext">.czi .lsm</span></li>
-              <li><span>Nikon</span><span class="ext">.nd2</span></li>
               <li><span>Leica</span><span class="ext">.lif</span></li>
               <li><span>NIfTI and Analyze</span><span class="ext">.nii .hdr .img</span></li>
-              <li><span>FITS</span><span class="ext">.fits .fit .fts .fz</span></li>
+              <li><span>Nikon</span><span class="ext">.nd2</span></li>
+              <li><span>Olympus FluoView</span><span class="ext">.oib .oif</span></li>
+              <li><span>OME-Zarr (its .zarr folder)</span><span class="ext">.zarr</span></li>
+              <li><span>PNG and JPEG</span><span class="ext">.png .jpg .jpeg</span></li>
+              <li><span>TIFF and OME-TIFF</span><span class="ext">.tif .tiff</span></li>
+              <li><span>Zeiss</span><span class="ext">.czi .lsm</span></li>
             </ul>
-            <p class="format-note">A folder of images opens as one image series.</p>
+            <p class="format-note">A folder of images opens as one image series, and a gzipped NIfTI file (.nii.gz) opens too. An Analyze .hdr/.img pair and an Olympus .oif (with its .oif.files folder) may ask for access to their folder.</p>
           </article>
           <article class="card">
-            <h3>Tables</h3>
+            <h3>Electrophysiology</h3>
             <ul class="format-list">
-              <li><span>Comma- and tab-separated text</span><span class="ext">.csv .tsv</span></li>
-              <li><span>Excel</span><span class="ext">.xlsx</span></li>
-              <li><span>Numbers</span><span class="ext">.numbers</span></li>
-              <li><span>Stata</span><span class="ext">.dta</span></li>
-              <li><span>SPSS</span><span class="ext">.sav .zsav</span></li>
-              <li><span>SAS transport</span><span class="ext">.xpt</span></li>
-              <li><span>GraphPad Prism</span><span class="ext">.pzfx .prism</span></li>
-              <li><span>JSON and JSON Lines</span><span class="ext">.json .jsonl .ndjson</span></li>
-              <li><span>Apache Parquet</span><span class="ext">.parquet</span></li>
-              <li><span>GCT expression matrices</span><span class="ext">.gct</span></li>
-              <li><span>CLS class labels for a GCT file</span><span class="ext">.cls</span></li>
-              <li><span>Loom</span><span class="ext">.loom</span></li>
-              <li><span>AnnData</span><span class="ext">.h5ad</span></li>
+              <li><span>AxoGraph</span><span class="ext">.axgx .axgd</span></li>
+              <li><span>Axon (pCLAMP)</span><span class="ext">.abf .atf</span></li>
+              <li><span>Blackrock</span><span class="ext">.ns1–.ns6 .nev</span></li>
+              <li><span>CED Signal (CFS)</span><span class="ext">.cfs</span></li>
+              <li><span>HEKA PatchMaster</span><span class="ext">.dat</span></li>
+              <li><span>Intan</span><span class="ext">.rhd .rhs</span></li>
+              <li><span>Neuralynx</span><span class="ext">.ncs .csc .nse .nst .ntt</span></li>
+              <li><span>NWB (Neurodata Without Borders)</span><span class="ext">.nwb</span></li>
+              <li><span>Open Ephys</span><span class="ext">.continuous .oebin</span></li>
+              <li><span>Plexon</span><span class="ext">.plx</span></li>
+              <li><span>Spike2</span><span class="ext">.smr</span></li>
+              <li><span>SpikeGLX (Neuropixels; its .bin or .meta)</span><span class="ext">.bin .meta</span></li>
+              <li><span>TDT</span><span class="ext">.tsq</span></li>
+              <li><span>WinWCP and WinEDR (Strathclyde)</span><span class="ext">.wcp .edr</span></li>
             </ul>
-            <p class="format-note">A workbook or project with several tables asks which one to open.</p>
+            <p class="format-note">Recordings kept in several files (Open Ephys, TDT, Intan, Neuralynx, SpikeGLX and others) open from the file listed, and may ask for access to its folder.</p>
+          </article>
+          <article class="card">
+            <h3>Physiology</h3>
+            <ul class="format-list">
+              <li><span>BIOPAC AcqKnowledge</span><span class="ext">.acq</span></li>
+              <li><span>BrainVision (its .vhdr)</span><span class="ext">.vhdr</span></li>
+              <li><span>EDF and BDF</span><span class="ext">.edf .bdf</span></li>
+              <li><span>LabChart (its MATLAB export)</span><span class="ext">.mat</span></li>
+              <li><span>PhysioNet WFDB (its .hea)</span><span class="ext">.hea</span></li>
+            </ul>
+            <p class="format-note">PhysioNet WFDB and BrainVision records open from their header, and may ask for access to its folder.</p>
+          </article>
+          <article class="card">
+            <h3>Genomics and cytometry</h3>
+            <ul class="format-list">
+              <li><span>10x Genomics and Matrix Market matrices</span><span class="ext">.h5 .mtx</span></li>
+              <li><span>AnnData</span><span class="ext">.h5ad</span></li>
+              <li><span>CLS class labels for a GCT file</span><span class="ext">.cls</span></li>
+              <li><span>Flow cytometry (FCS)</span><span class="ext">.fcs .lmd</span></li>
+              <li><span>GCT expression matrix</span><span class="ext">.gct</span></li>
+              <li><span>GEO series matrix</span><span class="ext">.txt</span></li>
+              <li><span>Loom</span><span class="ext">.loom</span></li>
+            </ul>
+            <p class="format-note">GCT, Loom, AnnData, 10x Genomics and GEO series matrix files open as heatmaps, and flow cytometry files as tables. A 10x matrix opens from its Cell Ranger .h5, its folder, or its matrix.mtx(.gz) with the features and barcodes beside it.</p>
+          </article>
+          <article class="card">
+            <h3>Chemistry and spectroscopy</h3>
+            <ul class="format-list">
+              <li><span>JCAMP-DX spectra</span><span class="ext">.jdx .dx .jcamp</span></li>
+              <li><span>mzML mass spectra</span><span class="ext">.mzml</span></li>
+            </ul>
+            <p class="format-note">Spectra open as graphs, peak tables and centroid spectra as sticks; an mzML file&rsquo;s chromatograms and spectra open as parts, its spectra grouped by MS level.</p>
+          </article>
+          <article class="card">
+            <h3>Astronomy</h3>
+            <ul class="format-list">
+              <li><span>FITS (images, spectra and tables)</span><span class="ext">.fits .fit .fts .fz</span></li>
+            </ul>
+            <p class="format-note">Gzipped and tile-compressed FITS files (.fits.gz, .fits.fz) open too; images, spectra and tables each open in a window of their own.</p>
           </article>
         </div>
       </section>
