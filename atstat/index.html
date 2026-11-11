@@ -129,6 +129,37 @@
     .card p {
       margin-bottom: 0;
     }
+    /* File types: one card per kind of file, a name and its extensions per row. */
+    .formats {
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    }
+    .format-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .format-list li {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2px 12px;
+      padding: 6px 0;
+      font-size: 16px;
+      color: var(--text-body);
+    }
+    .format-list li + li {
+      border-top: 1px solid var(--card-border);
+    }
+    .ext {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .card .format-note {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
     .section a {
       color: var(--link);
       text-decoration: none;
@@ -158,6 +189,9 @@
       }
       .tagline {
         font-size: 18px;
+      }
+      .formats {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -238,6 +272,7 @@
               Import data from common spreadsheet formats or
               copy and paste data into a clean, easy-to-use
               native spreadsheet interface.
+              <a href="#files-heading">See every file type</a>.
             </p>
           </article>
           <article class="card">
@@ -260,6 +295,44 @@
             <p>
               Built for Apple silicon, providing an intuitive and modern macOS experience.
             </p>
+          </article>
+        </div>
+      </section>
+      <!-- FILE TYPES -->
+      <section class="section" aria-labelledby="files-heading">
+        <h2 id="files-heading">Files @Stat Opens</h2>
+        <p>
+          Open a file with File › Open, or drop it on @Stat&rsquo;s Welcome window or any of its windows.
+        </p>
+        <div class="features formats">
+          <article class="card">
+            <h3>@Graph documents</h3>
+            <ul class="format-list">
+              <li><span>Charts, spreadsheets, and statistics pages saved by @Stat or @Graph</span><span class="ext">.@graph</span></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Text</h3>
+            <ul class="format-list">
+              <li><span>Plain text</span><span class="ext">.txt</span></li>
+              <li><span>Rich text</span><span class="ext">.rtf</span></li>
+            </ul>
+            <p class="format-note">Other plain text (.log, .md, and the like) opens in a Text Editor too.</p>
+          </article>
+          <article class="card">
+            <h3>Tables</h3>
+            <ul class="format-list">
+              <li><span>Comma- and tab-separated text</span><span class="ext">.csv .tsv</span></li>
+              <li><span>Excel</span><span class="ext">.xlsx</span></li>
+              <li><span>Numbers</span><span class="ext">.numbers</span></li>
+              <li><span>Stata</span><span class="ext">.dta</span></li>
+              <li><span>SPSS</span><span class="ext">.sav .zsav</span></li>
+              <li><span>SAS transport</span><span class="ext">.xpt</span></li>
+              <li><span>GraphPad Prism</span><span class="ext">.pzfx .prism</span></li>
+              <li><span>JSON and JSON Lines</span><span class="ext">.json .jsonl .ndjson</span></li>
+              <li><span>Apache Parquet</span><span class="ext">.parquet</span></li>
+            </ul>
+            <p class="format-note">A workbook or project with several tables asks which one to open.</p>
           </article>
         </div>
       </section>
