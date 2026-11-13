@@ -85,7 +85,7 @@ em { font-style: italic; }
 <li>If more than one camera is attached, choose one from the camera menu at the left of the toolbar, or from the Camera menu.</li>
 <li>Live view starts by itself; the Live button (⌘L) stops and restarts it. While it is stopped, the last image stays and follows the display settings (levels, color table, focus aid). Set exposure and gain in the Camera tab, or leave them on Auto. A value typed in a field takes effect on Return, or when you leave the field.</li>
 <li>In the View tab, under Scale Bar, type the objective and the camera adapter magnification so measurements and the scale bar are in µm (see Scale Bar &amp; Calibration).</li>
-<li>Click Snapshot (⌘I). The image is saved to the folder shown in the Capture tab (Pictures › @Cam to begin with), or opens in a window to review first, as you choose there.</li>
+<li>Click Snapshot (⌘I). The image is saved to the folder shown in Capture tab › Saving (Pictures › @Cam to begin with), or opens in a window to review first, as you choose there.</li>
 </ol>
 <h3>Without a camera</h3>
 <p>@Cam starts at the Welcome window, which says it is looking for a camera. When a camera opens, the live window takes over; if none has opened after a few seconds, the window says so. It appears again if the camera in use goes away and no other opens. From it, as in @Graph and @Stat: open a file (or drop one on it), choose a camera, choose the built-in Test Pattern to try everything without a camera, or open this guide. It lists recent files too. Help › Welcome to @Cam… (⌘@) shows it at any time; its checkbox, or Settings › General › Startup, turns off showing it by itself.</p>
@@ -97,6 +97,7 @@ em { font-style: italic; }
 <li>The histogram under the image shows the brightness of the live image, and sets the display's black and white points.</li>
 </ul>
 <p>Sections a camera can't use are hidden: a webcam-style camera shows only the controls it reports, and has no Trigger &amp; I/O tab.</p>
+<p>@Cam opens on the display, at the place and size, and on the sidebar tab it was last left on. If that display isn't connected, the window opens on another one, made smaller if it must be to fit.</p>
 <p class="tip">Display settings (contrast, color tables, the histogram's levels) change only what you see and the &quot;as displayed&quot; captures. Raw TIFF and OME-TIFF snapshots always keep the camera's own values, so measurements stay true.</p>
 <p>This guide is Help › @Cam User Guide (⇧⌘U); search it with the field above its pages, print it, or open it in your browser (Help › Open User Guide in Browser), from where it can be saved as a web page.</p>
 </section>
@@ -116,6 +117,7 @@ em { font-style: italic; }
 <ul>
 <li>Acquisition: start or stop live view; the frame rate. Machine-vision cameras come up at their fastest rate, which heats them in a long live session, so @Cam sets 30 fps when it connects; raise it for a short capture such as a time-lapse (the section warns above 30), and a higher rate you set is kept for that camera.</li>
 <li>Exposure and Gain: automatic or manual. For measurements, time-lapses and mosaics use manual exposure, so every image is exposed alike.</li>
+<li>Slider up to (under Exposure time and under Gain): the slider's top, for a slider over the values you use, such as 1–999 ms, rather than the camera's whole range (up to 147 s on some cameras), which leaves the useful part a sliver. Typing a value still reaches the camera's full range; leave the field blank for the full-range slider. The sliders under the histogram follow it. Each camera keeps its own, and presets keep them too.</li>
 <li>Black Level, White Balance, Focus &amp; Zoom: when the camera has them.</li>
 <li>Focus Aid: see Live View &amp; Display.</li>
 </ul>
@@ -144,6 +146,8 @@ em { font-style: italic; }
 <section class="page" id="bridges-other-cameras">
 <h2>Bridges: Other Cameras</h2>
 <p>A bridge is a separate program that drives a camera @Cam has no driver for and serves it to @Cam over the network: its controls and its frames. @Cam treats a bridged camera like any other, so live view, calibration, corrections, snapshots, time-lapse, movies, mosaics and two-camera views all work with it. A bridge can run on this Mac or on another computer, in any language, using whatever software the camera's maker provides for it.</p>
+<h3>Ready-made bridges</h3>
+<p>atcam-bridges.zip on the @Cam website has bridges for ToupTek cameras (including cameras ToupTek makes for other brands) and XIMEA cameras, which run natively on Macs with Apple silicon. Install the maker's software first (ToupTek's SDK, or XIMEA's macOS package), then start the bridge in Terminal; its README says how, step by step. Each gives @Cam the sensor's raw values, monochrome or color at 8 bits or the sensor's full depth, or the camera's own color, with exposure, gain, resolution, binning, region of interest, trigger and, on cooled cameras, the cooler.</p>
 <h3>Using a bridge</h3>
 <ul>
 <li>A bridge that announces itself on the network appears in the camera menu by itself, under its own name, next to the cameras plugged into the Mac. The first time, macOS asks whether @Cam may look for devices on the local network.</li>
@@ -166,9 +170,11 @@ em { font-style: italic; }
 <p>⌘0 fits the image to the window, ⌘1 shows it at 100% (one camera pixel per screen pixel), ⌘= and ⌘- zoom in and out; these act on the window in front, an opened image included. Pinch on the trackpad, or type a percentage in the toolbar's zoom box and press Return.</p>
 <h3>Histogram and contrast</h3>
 <p>Drag the blue line on the histogram to set the black point, the orange line to set the white point, and the yellow handle between them to bend the curve (brighter or darker mid-tones). Double-click the histogram, or click ↺, to reset. View tab › Display offers Full range, Auto contrast or Manual, a display gamma, a logarithmic histogram (it brings out a faint signal on a dark background) and, for color cameras, separate red, green and blue histograms.</p>
+<p>The histogram's top line gives the image's lowest, highest and mean values. When its values come in steps, as at high gain (which spreads the sensor's levels apart) or with 12-bit values in a 16-bit format, it also says how many different levels the image has and the step between them; the histogram then spreads each level over the values it stands for, so its shape shows rather than a comb of spikes. Fewer levels mean coarser intensities: a lower gain with a longer exposure gives more.</p>
+<p>Banners over the image while something runs (a mosaic, a focus stack, a time-lapse, averaging) sit below the presets and the focus meter. Drag one by its grip (≡) to move it out of the way; @Cam keeps the place for every banner, and a double-click on the grip puts it back.</p>
 <p>Under the histogram, Exposure and Gain sliders set the camera's exposure time (in ms) and gain without opening the Camera tab, for the camera's own controls only (a camera without one has no slider). They move with the Camera tab's, and are dimmed when the camera won't take a value (under Auto, on many cameras).</p>
 <h3>Color tables</h3>
-<p>View tab › Display › Color table shows a grayscale image in false color: Inverted, Green, Red, Blue, Cyan, Magenta, Yellow, Fire, Viridis, or Emission wavelength (λ), with a wavelength slider and common fluorophores. Saturated pixels can be highlighted (in red, or cyan where the color table is red).</p>
+<p>View tab › Display › Color table shows a grayscale image in false color: Inverted, Green, Red, Blue, Cyan, Magenta, Yellow, Fire, Viridis, or Emission wavelength (λ), with a wavelength slider and common fluorophores. Saturated pixels can be highlighted (in red, or cyan where the color table is red). A camera whose 16-bit format carries fewer bits (12-bit values in 16 bits reach 65,520, never 65,535) is marked saturated at its own top value, which @Cam finds from the image.</p>
 <h3>Smooth live view</h3>
 <p>Averages the last 2 to 16 frames, for a calmer live image of dim fluorescence on an inexpensive camera. Moving things leave a short trail. Measurements and raw snapshots use the unsmoothed image; for less noise in saved images use frame averaging (Capture tab).</p>
 <h3>Focus aid</h3>
@@ -215,13 +221,14 @@ em { font-style: italic; }
 <p>Image tab › Orientation turns the image by 90°, 180° or 270° and flips it, for eyepiece and C-mount cameras that show it turned or mirrored. Machine-vision cameras may also flip in the camera itself.</p>
 <h3>In-camera processing</h3>
 <p>Image tab › In-Camera Processing holds what the camera itself can do before the image is sent: gamma, contrast and brightness on machine-vision cameras, and the camera's lookup table, a curve stored in the camera and loaded with the camera maker's software. @Cam hides the lookup table's switch while the camera's table is empty, since an empty table maps every pixel to a few gray levels. Webcam-style cameras offer their own brightness, contrast, gamma, saturation, hue and sharpness here.</p>
+<p>These differ from the histogram's black point, white point and gamma, and View tab › Display, which change only how @Cam shows the image and never its values: In-Camera Processing changes the values the camera sends, and camera-values images (TIFF, OME-TIFF, @Graph) keep them as changed. So the in-camera Gamma reshapes the histogram itself, while the histogram's gamma handle only bends the curve drawn over it. For intensity measurements leave the camera's Gamma at 1 and its lookup table off; @Cam warns, in this section and in the Info tab, when a machine-vision camera's are not. Each saved image's description records these settings (InCameraGamma, InCameraContrast, InCameraBrightness, InCameraLUT).</p>
 </section>
 <section class="page" id="snapshots-movies">
 <h2>Snapshots &amp; Movies</h2>
 <h3>Session notes</h3>
 <p>Capture tab › Session Notes: specimen, stain or label, operator and a note. They stay until you change them, and are saved in every image (its description, and the caption, keywords and author that Finder, Spotlight, Preview and Photos show) and in movies. Turn on Add specimen and stain to file names for names like Image_Liver_H-E_20261018_153000.tif.</p>
 <h3>After capture</h3>
-<p>Snapshots and movies either save automatically to the folder (Choose… picks it), named with the image or movie name plus the date and time, or open in their own window to review and save manually (with the format, scale bar and measurements chosen there). Closing such a window, or quitting, asks before an unsaved capture is discarded; quitting during a recording or time-lapse asks too, and finishes the file in the capture folder. So does choosing another camera during a recording, time-lapse, mosaic or focus stack; if the camera is unplugged during a mosaic or focus stack, @Cam offers to finish it from what was taken. A recording waiting in its window is kept safe: if your Mac shuts down or @Cam closes before you save it, the next launch opens it again to save. Changing the region (Full Sensor and the centered regions too), binning, format or a preset while recording stops the recording, since the movie or stack can't take frames of another size. Time-lapse images always save to the folder (or only their TIFF stack, see Time-lapse). Camera › Show Captures in Finder shows the last one saved.</p>
+<p>Capture tab › Saving holds the one folder everything captured goes to (Choose… picks it, Show in Finder shows the last file saved). Snapshots and movies either save automatically to the folder or open in their own window to review and save manually (with the format, scale bar and measurements chosen there). File names are the image or movie name (with the specimen and stain, if asked) and either a number that counts up, Image_001, Image_002… (snapshots and movies each have their own count), or the date and time. With numbers, Saving shows the next names; Reset to 001 starts again, and a new name starts its own count; numbers already used in the folder are skipped, so no file is replaced. Time-lapse images are always named with the date and time. Closing such a window asks before an unsaved capture is discarded. Quitting with unsaved windows (captures, or measurements on opened images) asks once, as in @Graph and @Stat: Review Changes… brings each forward in turn to Save, not save (Don't Save, ⌘D) or Cancel, which stops the quit; Discard and Quit lets them all go. Quitting during a recording or time-lapse asks first, and finishes the file in the capture folder. So does choosing another camera during a recording, time-lapse, mosaic or focus stack; if the camera is unplugged during a mosaic or focus stack, @Cam offers to finish it from what was taken. A recording waiting in its window is kept safe: if your Mac shuts down or @Cam closes before you save it, the next launch opens it again to save. Changing the region (Full Sensor and the centered regions too), binning, format or a preset while recording stops the recording, since the movie or stack can't take frames of another size. Time-lapse images always save to the folder (or only their TIFF stack, see Time-lapse). Camera › Show Captures in Finder shows the last one saved.</p>
 <h3>Formats</h3>
 <p>Each format says what it keeps: the camera values (what the sensor measured, for measuring) or the image as displayed (with your contrast settings, for showing), and whether it is lossless or compressed. Measure brightness only in a camera-values format.</p>
 <table>
@@ -249,6 +256,8 @@ em { font-style: italic; }
 <tr><td>Opened image</td><td>Not needed: the original is never changed</td><td>A copy of its own values</td><td>A copy as displayed</td></tr>
 </tbody>
 </table>
+<h3>Renaming</h3>
+<p>Double-click the title of an image, snapshot or movie window, or choose File › Rename… (⌃⌘R), type the new name and press Return (Esc cancels), as in @Graph and @Stat. The file is renamed in its folder and keeps its extension; a two-camera snapshot's files for each camera are renamed with it. A snapshot or movie not yet saved takes the name for its save. @Cam can rename files in folders it may change, such as the capture folder; for a file opened from another folder it first asks you to allow that folder.</p>
 <h3>Frame averaging</h3>
 <p>Average 2 to 256 frames for each snapshot to reduce noise, e.g. for dim fluorescence: type the number in Capture tab › Average, or step it with the arrows; Reset to 1 goes back to single frames. Below it, @Cam says how long a snapshot will take at the frame rate now, and the Snapshot button's tooltip names the count. The setting is kept for every camera. Keep the specimen still while it averages; a banner on the image shows the progress, and Cancel (or Esc) stops it. The average is rounded to the camera's own levels, so the image stays in camera values and compares with single shots: averaging lowers the noise but adds no levels (an 8-bit camera's average is still 8-bit). The description records the number of frames.</p>
 <h3>Movies</h3>
@@ -263,8 +272,8 @@ em { font-style: italic; }
 <h3>Printing</h3>
 <p>File › Print… (⌘P) prints the window in front: the live image or a snapshot as it would be saved (with the scale bar, measurements and annotations you chose), an opened image as displayed, or the User Guide page you're reading. The image fills the page without changing its shape. File › Page Setup… (⇧⌘P) sets the paper size, orientation and scale. Print is dimmed for a movie window or Settings.</p>
 <h3>Presets</h3>
-<p>Save Preset… and Load Preset… (Capture tab or Camera menu) store exposure, gain, black level, format, region of interest, trigger and display settings in a file, for repeating a setup, with the scale (objective and adapter).</p>
-<p>For switching between the ways a microscope is used, keep up to six presets as buttons over the top left of the live image (4× Brightfield, 4× Fluorescence, 60× Brightfield…). Set the camera, the display and the scale bar's objective and adapter, then click + and name it. Clicking a button sets them all back at once, so the scale bar follows the objective. Each camera model has its own buttons.</p>
+<p>Save Preset… and Load Preset… (Capture tab or Camera menu) store exposure, gain, black level, format, region of interest, trigger and display settings in a file, for repeating a setup, with the scale (objective and adapter) and the exposure and gain sliders' tops.</p>
+<p>For switching between the ways a microscope is used, keep up to six presets as buttons over the top left of the live image (4× Brightfield, 4× Fluorescence, 60× Brightfield…). Set the camera, the display (with its color table), the scale bar's objective and adapter and the sliders' tops, then click + and name it. Clicking a button sets them all back at once, so the scale bar follows the objective. Each camera model has its own buttons.</p>
 <p>The chosen preset is filled in; a dot after its name means a setting it keeps has been changed since. Choosing another then asks first whether to keep the change in it (Update), leave it as it was (Don't Keep) or stay (Cancel); clicking the changed one again offers to go back to its settings. Right-click a button to update it with the current settings, rename it, move it or delete it. A setting the camera sets itself (exposure under Auto, say) doesn't count as a change.</p>
 </section>
 <section class="page" id="time-lapse-focus-stacks-merging">
@@ -277,7 +286,7 @@ em { font-style: italic; }
 <p>For specimens thicker than the depth of focus: Start Focus Stack (⇧⌘F, or the Tools tab), turn the fine focus slowly through the whole depth while @Cam collects frames, then Finish (⇧⌘F again). Each part of the result comes mostly from the frames where it was sharpest, blended so there are no seams; sharpness is judged above each frame's noise, and at scales from fine detail up to a cell body, so noise doesn't pass for detail. Where no frame is sharper than the others (the background, or a part that stays in focus), the frames are averaged, which also lowers the noise: a stack taken without turning the focus is an average of its frames. Keep the stage still. The result is saved like a snapshot and opens in its own window.</p>
 <p>A shutter sound plays when a time-lapse or focus stack starts, and a chime when it ends (turn them off in Settings › Sounds); the status line over the live image says so too.</p>
 <h3>Merge Channels</h3>
-<p>Combines channels into one color image, for fluorescence channels taken one after another, or fluorescence over brightfield. Add Current Image as Channel, change the filter, add the next; in the Merge Channels window each channel gets a color (or an emission wavelength) and its own levels, and the result can be saved as PNG or TIFF, with the scale bar if it is on. The file records the scale the channels were taken at, bar or not; channels taken at different scales (another binning, say) leave it uncalibrated. All channels must have the same resolution.</p>
+<p>Combines channels into one color image, for fluorescence channels taken one after another, or fluorescence over brightfield. Add Current Image as Channel, change the filter, add the next, or drop images taken earlier (TIFF, PNG, JPEG and the other formats @Cam opens) on the Merge Channels window, or click its Add Images…; each is named after its file and keeps its scale, and a color image counts by its brightness. In the Merge Channels window each channel gets a color (or an emission wavelength) and its own levels, and the result can be saved as PNG or TIFF, with the scale bar if it is on. The file records the scale the channels were taken at, bar or not; channels taken at different scales (another binning, say) leave it uncalibrated. All channels must have the same resolution.</p>
 </section>
 <section class="page" id="mosaics-stitching">
 <h2>Mosaics (Stitching)</h2>
@@ -297,6 +306,14 @@ em { font-style: italic; }
 </ul>
 <p class="tip">Overlaps need detail to line up: a field of empty glass or plain background can't be placed. Move on to where there is some structure, and the mosaic carries on.</p>
 <p>The mosaic keeps the camera's raw values (8 or 16-bit, or color), times each tile's gain. It can be very large: each tile is a full camera frame, so many tiles at full resolution take a lot of memory, and a mosaic holds up to 400 tiles. Use binning or a lower resolution for large areas.</p>
+<h3>Stitching image files</h3>
+<p>Stitch Images… (in the Tools tab beside Start Mosaic, or File › Stitch Images…) makes a mosaic from image files: fields taken earlier, with another camera, or by another program. No camera is needed.</p>
+<ol>
+<li>Drop the images on the Stitch Images window, or click Add Images…. Any format @Cam opens will do (TIFF, PNG, JPEG, HEIC and others), in any order, as long as all are the same size and kind (all grayscale or all color, all 8 or all 16 bits).</li>
+<li>Choose what to save the mosaic as: TIFF or OME-TIFF keep the values as read; PNG or JPEG for a picture.</li>
+<li>Click Stitch…. @Cam compares every pair of images to find which overlap and where, then aligns them to the pixel, evens out brightness and blends the seams, as for a live mosaic, and asks where to save the result, which then opens.</li>
+</ol>
+<p>Neighboring images should overlap by about a third, with some detail in the overlap. An image that overlaps none of the others is left out, and the window names it. The mosaic keeps the scale when every image has the same one. The stitching is planar: images are shifted, not rotated or warped, which suits microscope fields; photographs taken by turning a camera need a panorama program.</p>
 </section>
 <section class="page" id="measuring-annotating">
 <h2>Measuring &amp; Annotating</h2>
@@ -333,7 +350,7 @@ em { font-style: italic; }
 </section>
 <section class="page" id="opening-saved-images">
 <h2>Opening Saved Images</h2>
-<p>File › Open File… (⌘O) opens saved TIFF, PNG or JPEG images (also OME-TIFF), to adjust levels and color tables and to measure, count and annotate them as on the live image. 16-bit images keep their full values. Grayscale and RGB images are read as the file stores them, whatever color profile they carry (Adobe RGB, Display P3, linear gray), so the values match Fiji's; 16-bit color images are rounded to 8 bits per color.</p>
+<p>File › Open File… (⌘O) opens saved images: TIFF (also OME-TIFF), PNG, JPEG, HEIC and HEIF (iPhone photos), WebP, BMP, GIF, JPEG 2000 and DNG (as macOS develops it), to adjust levels and color tables and to measure, count and annotate them as on the live image. 16-bit images keep their full values. Grayscale and RGB images are read as the file stores them, whatever color profile they carry (Adobe RGB, Display P3, linear gray), so the values match Fiji's; 16-bit color images are rounded to 8 bits per color.</p>
 <p>A stack, such as an OME-TIFF recording from @Cam, opens with a Frame slider in the Image section: step through its frames with the slider or the arrows beside it. The frame's time from the start of the recording is shown when the file has it. The display settings, scale, measurements and annotations stay as they are from frame to frame.</p>
 <p>Movies (MOV or MP4, such as @Cam's own recordings) open in a movie window to play, with Export… to re-encode them.</p>
 <p>File › Open Recent lists the files opened, saved and exported most recently. Files also open by dropping them on any @Cam window or on its Dock icon, or from Finder with Open With › @Cam (@Cam is offered for images and movies but never made their default app). Several images open together, in the order given, as tabs of one image window, kept apart from the live camera window; Settings › General › Open files chooses tabs or separate windows, as in @Graph and @Stat. A file @Cam can't open is named in a note rather than ignored.</p>
@@ -352,7 +369,7 @@ em { font-style: italic; }
 <table>
 <thead><tr><th>Format</th><th>The scale is kept as</th><th>In @Graph</th></tr></thead>
 <tbody>
-<tr><td>TIFF (camera values or as displayed), merged channels as TIFF</td><td>The resolution in pixels per centimeter, across and down, and &quot;Scale=&quot; in the description</td><td>Opens with the scale</td></tr>
+<tr><td>TIFF (camera values or as displayed), merged channels as TIFF</td><td>The resolution, across and down, and &quot;Scale=&quot; in the description. A grayscale camera-values TIFF keeps it as ImageJ does (pixels per µm, with its display range); others in pixels per centimeter</td><td>Opens with the scale</td></tr>
 <tr><td>OME-TIFF, OME-TIFF stack</td><td>The pixel size in µm in the OME-XML, and the resolution</td><td>Opens with the scale; a stack with each frame's time</td></tr>
 <tr><td>Time-lapse TIFF stack</td><td>The pixel size in the OME-XML, with each image's time, and the resolution</td><td>Opens with the scale and the times</td></tr>
 <tr><td>Time-lapse images (a folder)</td><td>Each image as its format keeps it</td><td>The folder opens as a time series, with the first image's scale and bit depth</td></tr>
@@ -445,6 +462,7 @@ em { font-style: italic; }
 <p class="key"><kbd>⌘S</kbd> Save the snapshot or movie in front</p>
 <p class="key"><kbd>⇧⌘S</kbd> Save As: choose the name, folder and format</p>
 <p class="key"><kbd>⇧⌘E</kbd> Export the front window's image (as displayed) or movie</p>
+<p class="key"><kbd>⌃⌘R</kbd> Rename the front image, snapshot or movie window and its file (as double-clicking its title does)</p>
 <p class="key"><kbd>⌘0</kbd> Fit to window</p>
 <p class="key"><kbd>⌘1</kbd> Actual size (100%)</p>
 <p class="key"><kbd>⌘= / ⌘-</kbd> Zoom in / out</p>
