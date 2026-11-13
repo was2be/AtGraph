@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="color-scheme" content="light dark">
-  <title>@Cam — Live Microscope Camera Imaging for macOS</title>
+  <title>@Graph — Data Visualization, Analysis &amp; Statistics for macOS</title>
   <meta
     name="description"
-    content="@Cam by @Graph is a native macOS application for live view, measurement, and capture with microscope cameras, from research USB3 Vision and GigE Vision cameras to USB eyepiece cameras and webcams."
+    content="@Graph is a macOS application for scientific data visualization, analysis, and statistics, including electrophysiology, fluorescence microscopy, genomics, and other research data."
   >
-  <link rel="canonical" href="https://atgraph.app/atcam/">
+  <link rel="canonical" href="https://atgraph.app/">
   <style>
     :root {
       color-scheme: light;
@@ -62,6 +62,7 @@
     main .section:first-of-type {
       margin-top: 24px; /* overrides the default 80px just for Overview */
     }
+
     .logo {
       width: 240px;
       max-width: 80%;
@@ -69,6 +70,7 @@
       display: block;
       margin: 0 auto 20px auto;
       border-radius: 12.5%;
+      overflow: hidden;
       box-shadow: var(--logo-shadow);
     }
     h1 {
@@ -113,6 +115,9 @@
       font-size: 18px;
       color: var(--text-body);
     }
+    p a {
+      color: var(--link);
+    }
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -128,13 +133,61 @@
     .card p {
       margin-bottom: 0;
     }
-    .section a {
+    /* File types: one card per kind of file, a name and its extensions per row. */
+    .formats {
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    }
+    .format-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .format-list li {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2px 12px;
+      padding: 6px 0;
+      font-size: 16px;
+      color: var(--text-body);
+    }
+    .format-list li + li {
+      border-top: 1px solid var(--card-border);
+    }
+    .ext {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .card .format-note {
+      margin-top: 10px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .app-card {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .app-logo {
+      width: 64px;
+      height: 64px;
+      flex: none;
+      border-radius: 12.5%;
+      box-shadow: var(--logo-shadow);
+    }
+    .app-card h3 {
+      margin-bottom: 8px;
+    }
+    .app-card h3 a {
       color: var(--link);
       text-decoration: none;
-      font-weight: 600;
     }
-    .section a:hover {
+    .app-card h3 a:hover {
       text-decoration: underline;
+    }
+    .app-card p {
+      margin-top: 0;
     }
     .footer {
       margin-top: 100px;
@@ -144,11 +197,6 @@
     }
     .footer a {
       color: inherit;
-    }
-    .footer .note {
-      display: block;
-      margin-top: 6px;
-      font-size: 12px;
     }
     @media (max-width: 600px) {
       .container {
@@ -163,6 +211,9 @@
       .tagline {
         font-size: 18px;
       }
+      .formats {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -172,19 +223,16 @@
     <header>
       <img
         class="logo"
-        src="/atcam/@Cam_Logo.png"
-        alt="@Cam logo"
+        src="@Graph_Logo.png"
+        alt="@Graph logo"
       >
       <h1>
-        @Cam<br>
+        @Graph<br>
         <span class="h1-subtitle">
-          Live Microscope Camera Imaging for macOS
+          Intuitive Data Visualization, Analysis, &amp; Statistics for macOS
         </span>
       </h1>
-      <p class="tagline">
-        From specimen to calibrated, presentable images in a few clicks.
-      </p>
-      <a class="cta" href="https://testflight.apple.com/join/7vueyRvw" target="_blank" rel="noopener">
+      <a class="cta" href="https://testflight.apple.com/join/WhsC93AU" target="_blank" rel="noopener">
         Public Beta Available - Join on TestFlight
       </a>
     </header>
@@ -193,11 +241,10 @@
       <section class="section" aria-labelledby="overview-heading">
         <h2 id="overview-heading">Overview</h2>
         <p>
-          @Cam by <a href="https://atgraph.app/">@Graph</a> is a native macOS
-          application for live view, measurement, and capture with microscope
-          cameras. Connect a scientific camera or an inexpensive USB microscope
-          camera, and @Cam recognizes it, shows only the controls it actually
-          has, in plain language, and turns it into a complete imaging station.
+          @Graph is a macOS application for data visualization, analysis,
+          and statistics. Intuitive enough for students, powerful enough for rigorous 
+          scientific research, including electrophysiology, fluorescence microscopy, omics, and other
+          experimental data.
         </p>
       </section>
       <!-- FEATURES -->
@@ -205,75 +252,193 @@
         <h2 id="features-heading">Features</h2>
         <div class="features">
           <article class="card">
-            <h3>Works with the cameras you have</h3>
+            <h3>High-performance plotting</h3>
             <p>
-              USB3 Vision and GigE Vision cameras, USB microscope and eyepiece
-              cameras, webcams, and compatible iPhones. ToupTek and XIMEA cameras
-              connect through ready-made bridge programs, and others through a
-              bridge you write (some programming required):
-              <a href="/atcam/atcam-bridges.zip">download the bridges and guide</a>.
+              Render large datasets smoothly with interactive graphs and charts.
             </p>
           </article>
           <article class="card">
-            <h3>Only the controls your camera has</h3>
+            <h3>Fluorescence microscopy analysis</h3>
             <p>
-              Exposure, gain, white balance, focus, resolution, and frame rate,
-              with friendly labels. Features a camera lacks stay out of the way.
+              Open z-series and time-series images, plot ROI values, and quantify changes
+              in fluorescence in one application.
             </p>
           </article>
           <article class="card">
-            <h3>A clear, adjustable image</h3>
+            <h3>Easy &ldquo;omics&rdquo; visualization</h3>
             <p>
-              A live histogram and bendable curve, false-color tables with an
-              emission-wavelength (λ) slider, shading correction, white balance,
-              and rotation and flipping.
+              Volcano plots, heatmaps, dot plots, UpSet, Venn diagrams and many others.
             </p>
           </article>
           <article class="card">
-            <h3>Focus with confidence</h3>
+            <h3>Scientific file support</h3>
             <p>
-              A focus meter, focus peaking that highlights sharp edges, and
-              focus stacking for an all-in-focus image of thick specimens.
+              Import a wide variety of research data formats, including for neurophysiology,
+              imaging, and genomics data sets.
+              <a href="#files-heading">See every file type</a>.
             </p>
           </article>
           <article class="card">
-            <h3>Measure and annotate</h3>
+            <h3>Analysis tools</h3>
             <p>
-              Calibrate with a stage micrometer, then measure lengths, angles, and
-              areas, count cells, and add labels, arrows, and a scale bar. Copy
-              results into @Graph or @Stat.
+              Process, measure, and extract meaning from experimental data.
             </p>
           </article>
           <article class="card">
-            <h3>Capture everything</h3>
+            <h3>Statistics tools</h3>
             <p>
-              Raw 8- or 16-bit TIFF or images as displayed, frame averaging,
-              time-lapse with movie and TIFF stack, focus stacks, movies in
-              H.264, HEVC, or ProRes, and mosaics: live as you move the stage,
-              or stitched from image files you drop in.
+              @Graph automatically identifies and applies appropriate
+              statistical tests to help you better understand your data.
             </p>
           </article>
           <article class="card">
-            <h3>Two cameras at once</h3>
+            <h3>AI Assistant</h3>
             <p>
-              Side by side, one above the other, picture in picture, or merged with a slider, such
-              as fluorescence over brightfield. Merge captured channels into
-              one color image.
+              Choose among several AI assistants and work with your data using
+              plain English.
             </p>
           </article>
           <article class="card">
-            <h3>Ready for the classroom</h3>
+            <h3>Export elegant charts and graphs</h3>
             <p>
-              Present the live image full screen on a projector or second
-              display, with the scale bar and annotations.
+              Easily export your data to a variety of image formats, including vector-based SVG.
             </p>
           </article>
+
           <article class="card">
             <h3>Native for macOS</h3>
             <p>
-              Built for Apple silicon, with smooth live view and a modern macOS
-              experience in Dark, Light, or System appearance.
+              Built for Apple silicon for an intuitive and modern macOS experience.
             </p>
+          </article>
+        </div>
+      </section>
+      <!-- FILE TYPES -->
+      <section class="section" aria-labelledby="files-heading">
+        <h2 id="files-heading">Files @Graph Opens</h2>
+        <p>
+          Open a file with File › Open, or drop it on @Graph&rsquo;s Welcome window or any of its windows.
+        </p>
+        <div class="features formats">
+          <article class="card">
+            <h3>@Graph documents</h3>
+            <ul class="format-list">
+              <li><span>Graphs, charts, images and spreadsheets saved by @Graph or @Stat</span><span class="ext">.@graph</span></li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Tables and text</h3>
+            <ul class="format-list">
+              <li><span>Apache Arrow and Feather</span><span class="ext">.arrow .feather .arrows</span></li>
+              <li><span>Apache Parquet</span><span class="ext">.parquet</span></li>
+              <li><span>Comma- and tab-separated text</span><span class="ext">.csv .tsv</span></li>
+              <li><span>Excel</span><span class="ext">.xlsx .xls</span></li>
+              <li><span>JSON and JSON Lines</span><span class="ext">.json .jsonl .ndjson</span></li>
+              <li><span>Numbers</span><span class="ext">.numbers</span></li>
+              <li><span>Plain text</span><span class="ext">.txt .text</span></li>
+              <li><span>Rich text (its text)</span><span class="ext">.rtf</span></li>
+            </ul>
+            <p class="format-note">A workbook with several sheets asks which ones to open.</p>
+          </article>
+          <article class="card">
+            <h3>Statistics</h3>
+            <ul class="format-list">
+              <li><span>GraphPad Prism</span><span class="ext">.pzfx .prism</span></li>
+              <li><span>SAS transport</span><span class="ext">.xpt</span></li>
+              <li><span>SPSS</span><span class="ext">.sav .zsav</span></li>
+              <li><span>Stata</span><span class="ext">.dta</span></li>
+            </ul>
+            <p class="format-note">A Prism project with several data tables asks which ones to open.</p>
+          </article>
+          <article class="card">
+            <h3>General science</h3>
+            <ul class="format-list">
+              <li><span>HDF5</span><span class="ext">.h5 .hdf5</span></li>
+              <li><span>Igor Pro</span><span class="ext">.pxp .h5xp .ibw</span></li>
+              <li><span>LabVIEW TDMS</span><span class="ext">.tdms</span></li>
+              <li><span>MATLAB</span><span class="ext">.mat</span></li>
+              <li><span>NetCDF</span><span class="ext">.nc .nc4 .cdf</span></li>
+              <li><span>NumPy arrays</span><span class="ext">.npy .npz</span></li>
+            </ul>
+            <p class="format-note">A NetCDF file&rsquo;s variables open as tables: those along one dimension together, each 2-D variable on its own.</p>
+          </article>
+          <article class="card">
+            <h3>Microscopy and imaging</h3>
+            <ul class="format-list">
+              <li><span>Bitplane Imaris</span><span class="ext">.ims</span></li>
+              <li><span>BMP, GIF and WebP</span><span class="ext">.bmp .gif .webp</span></li>
+              <li><span>Bruker Prairie View (T-series, Z-series, single images)</span><span class="ext">.xml</span></li>
+              <li><span>HEIC and HEIF (iPhone photos)</span><span class="ext">.heic .heif</span></li>
+              <li><span>JPEG 2000</span><span class="ext">.jp2</span></li>
+              <li><span>Leica</span><span class="ext">.lif</span></li>
+              <li><span>NIfTI and Analyze</span><span class="ext">.nii .hdr .img</span></li>
+              <li><span>Nikon</span><span class="ext">.nd2</span></li>
+              <li><span>Olympus FluoView</span><span class="ext">.oib .oif</span></li>
+              <li><span>OME-Zarr (its .zarr folder)</span><span class="ext">.zarr</span></li>
+              <li><span>PNG and JPEG</span><span class="ext">.png .jpg .jpeg</span></li>
+              <li><span>TIFF and OME-TIFF</span><span class="ext">.tif .tiff</span></li>
+              <li><span>Zeiss</span><span class="ext">.czi .lsm</span></li>
+            </ul>
+            <p class="format-note">A folder of TIFF images opens as one image series, and a gzipped NIfTI file (.nii.gz) opens too.</p>
+          </article>
+          <article class="card">
+            <h3>Electrophysiology</h3>
+            <ul class="format-list">
+              <li><span>AxoGraph</span><span class="ext">.axgx .axgd</span></li>
+              <li><span>Axon (pCLAMP)</span><span class="ext">.abf .atf</span></li>
+              <li><span>Blackrock</span><span class="ext">.ns1–.ns6 .nev</span></li>
+              <li><span>CED Signal (CFS)</span><span class="ext">.cfs</span></li>
+              <li><span>HEKA PatchMaster</span><span class="ext">.dat</span></li>
+              <li><span>Intan</span><span class="ext">.rhd .rhs</span></li>
+              <li><span>Neuralynx</span><span class="ext">.ncs .csc .nse .nst .ntt</span></li>
+              <li><span>NWB (Neurodata Without Borders)</span><span class="ext">.nwb</span></li>
+              <li><span>Open Ephys</span><span class="ext">.continuous .oebin</span></li>
+              <li><span>Plexon</span><span class="ext">.plx</span></li>
+              <li><span>Spike2</span><span class="ext">.smr</span></li>
+              <li><span>SpikeGLX (Neuropixels; its .bin or .meta)</span><span class="ext">.bin .meta</span></li>
+              <li><span>TDT</span><span class="ext">.tsq</span></li>
+              <li><span>WinWCP and WinEDR (Strathclyde)</span><span class="ext">.wcp .edr</span></li>
+            </ul>
+            <p class="format-note">Recordings kept in several files (Open Ephys, TDT, Intan, Neuralynx, SpikeGLX and others) open from the file listed, with the rest beside it in its folder.</p>
+          </article>
+          <article class="card">
+            <h3>Physiology</h3>
+            <ul class="format-list">
+              <li><span>BIOPAC AcqKnowledge</span><span class="ext">.acq</span></li>
+              <li><span>BrainVision (its .vhdr)</span><span class="ext">.vhdr</span></li>
+              <li><span>EDF and BDF</span><span class="ext">.edf .bdf</span></li>
+              <li><span>LabChart (its MATLAB export)</span><span class="ext">.mat</span></li>
+              <li><span>PhysioNet WFDB (its .hea)</span><span class="ext">.hea</span></li>
+            </ul>
+            <p class="format-note">PhysioNet WFDB and BrainVision records open from their header, with their data beside it in its folder.</p>
+          </article>
+          <article class="card">
+            <h3>Genomics and cytometry</h3>
+            <ul class="format-list">
+              <li><span>10x Genomics and Matrix Market matrices</span><span class="ext">.h5 .mtx</span></li>
+              <li><span>AnnData</span><span class="ext">.h5ad</span></li>
+              <li><span>CLS class labels for a GCT file</span><span class="ext">.cls</span></li>
+              <li><span>Flow cytometry (FCS)</span><span class="ext">.fcs .lmd</span></li>
+              <li><span>GCT expression matrix</span><span class="ext">.gct</span></li>
+              <li><span>GEO series matrix</span><span class="ext">.txt</span></li>
+              <li><span>Loom</span><span class="ext">.loom</span></li>
+            </ul>
+            <p class="format-note">GCT, Loom, AnnData, 10x Genomics and GEO series matrix files open as heatmaps, and flow cytometry files as tables. A 10x matrix opens from its Cell Ranger .h5, its folder, or its matrix.mtx(.gz) with the features and barcodes beside it.</p>
+          </article>
+          <article class="card">
+            <h3>Chemistry and spectroscopy</h3>
+            <ul class="format-list">
+              <li><span>JCAMP-DX spectra</span><span class="ext">.jdx .dx .jcamp</span></li>
+              <li><span>mzML mass spectra</span><span class="ext">.mzml</span></li>
+            </ul>
+            <p class="format-note">Spectra open as graphs, peak tables and centroid spectra as sticks; an mzML file&rsquo;s chromatograms and spectra open as parts, its spectra grouped by MS level.</p>
+          </article>
+          <article class="card">
+            <h3>Astronomy</h3>
+            <ul class="format-list">
+              <li><span>FITS (images, spectra and tables)</span><span class="ext">.fits .fit .fts .fz</span></li>
+            </ul>
+            <p class="format-note">Gzipped and tile-compressed FITS files (.fits.gz, .fits.fz) open too; images, spectra and tables each open in a window of their own.</p>
           </article>
         </div>
       </section>
@@ -281,35 +446,66 @@
       <section class="section" aria-labelledby="guide-heading">
         <h2 id="guide-heading">User Guide</h2>
         <p>
-          Getting started, each tab, calibration, snapshots and movies,
-          measuring, mosaics, Shortcuts and troubleshooting: the complete
-          <a href="/atcam/AtCam_guide.html">@Cam User Guide</a>, the same guide as
-          Help › @Cam User Guide in the app.
+          Getting started, file formats, graphs and charts, statistics,
+          electrophysiology and imaging analysis, omics plots, the AI Assistant
+          and keyboard shortcuts: the complete
+          <a href="/AtGraph_guide.html">@Graph User Guide</a>, the same guide as
+          Help › @Graph User Guide in the app.
         </p>
+      </section>
+      <!-- MORE APPS -->
+      <section class="section" aria-labelledby="apps-heading">
+        <h2 id="apps-heading">More Apps</h2>
+        <div class="features">
+          <article class="card app-card">
+            <img class="app-logo" src="/atstat/@Stat_Logo.png" alt="@Stat logo">
+            <div>
+              <h3><a href="/atstat/">@Stat</a></h3>
+              <p>
+                Just the statistics: a lightweight app with @Graph's rigorous
+                tests and elegant charts, without the full analysis suite.
+              </p>
+            </div>
+          </article>
+          <article class="card app-card">
+            <img class="app-logo" src="/atcam/@Cam_Logo.png" alt="@Cam logo">
+            <div>
+              <h3><a href="/atcam/">@Cam</a></h3>
+              <p>
+                Live microscope camera imaging: view, measure, and capture
+                with research cameras or inexpensive USB microscope cameras.
+              </p>
+            </div>
+          </article>
+          <article class="card app-card">
+            <img class="app-logo" src="/atreader/@GraphReader_Logo.png" alt="@Graph Reader logo">
+            <div>
+              <h3><a href="/atreader/">@Graph Reader</a></h3>
+              <p>
+                Free: share your work with anyone. Colleagues can open your
+                .@graph files, zoom in, and explore the data without @Graph.
+              </p>
+            </div>
+          </article>
+        </div>
       </section>
       <!-- PRIVACY -->
       <section class="section" aria-labelledby="privacy-heading">
-        <h2 id="privacy-heading">Privacy Policy</h2>
+        <h2 id="privacy-heading">Privacy</h2>
         <p>
-          @Cam does not collect, transmit, or store any user data. The live
-          image, your captures, and your measurements stay on your Mac.
-          Network access is used only to reach GigE Vision cameras on your
-          local network and any camera bridge you choose to connect to.
+          AtGraph LLC receives no data from @Graph: no accounts, analytics,
+          advertising or tracking. Your files stay on your Mac.
         </p>
         <p>
-          <a href="https://atgraph.app/atcam/privacy/">
-            Read the @Cam Privacy Policy
-          </a>
+          The AI Assistant is optional. When you use it, your questions and
+          the data or charts you ask it to work with go directly from your Mac
+          to the provider you choose: Apple Private Cloud Compute, or
+          Anthropic, OpenAI, Google or xAI with your own API key. Nothing is
+          sent until you choose a provider and ask a question.
         </p>
-      </section>
-      <!-- SUPPORT -->
-      <section class="section" aria-labelledby="support-heading">
-        <h2 id="support-heading">Support</h2>
         <p>
-          @Cam is developed by AtGraph LLC. For bug reports, questions, or feature requests:
-          <br>
-          <a href="mailto:Support@atgraph.app">
-            Support@atgraph.app
+          <a href="https://atgraph.app/privacy/">
+            Read the @Graph Privacy Policy
           </a>
         </p>
       </section>
@@ -317,11 +513,9 @@
     <!-- FOOTER -->
     <footer class="footer">
       © 2026 AtGraph LLC. All rights reserved.
-      <span class="note">
-        @Cam is an independent product, not affiliated with or endorsed by camera
-        or microscope manufacturers. All trademarks belong to their owners.
-      </span>
     </footer>
   </div>
+
 </body>
+  <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "26b2b8394dc94ba3ade344f3992e9bdf"}'></script><!-- End Cloudflare Web Analytics -->
 </html>
