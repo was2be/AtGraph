@@ -7,7 +7,7 @@
   <title>@Graph — Data Visualization, Analysis &amp; Statistics for macOS</title>
   <meta
     name="description"
-    content="@Graph is a macOS application for scientific data visualization, analysis, and statistics, including electrophysiology, fluorescence microscopy, genomics, and other research data."
+    content="@Graph 0.9 is a macOS application for scientific data visualization, analysis, and statistics, with six free toolkits: electrophysiology, pharmacology and biochemistry, biosignals, spectroscopy, flow cytometry, and astronomy."
   >
   <link rel="canonical" href="https://atgraph.app/">
   <style>
@@ -232,6 +232,10 @@
           Intuitive Data Visualization, Analysis, &amp; Statistics for macOS
         </span>
       </h1>
+      <p class="tagline">
+        Version 0.9, now with six toolkits for electrophysiology, pharmacology &amp; biochemistry,
+        biosignals, spectroscopy, flow cytometry, and astronomy.
+      </p>
       <a class="cta" href="https://testflight.apple.com/join/WhsC93AU" target="_blank" rel="noopener">
         Public Beta Available - Join on TestFlight
       </a>
@@ -241,10 +245,16 @@
       <section class="section" aria-labelledby="overview-heading">
         <h2 id="overview-heading">Overview</h2>
         <p>
-          @Graph is a macOS application for data visualization, analysis,
-          and statistics. Intuitive enough for students, powerful enough for rigorous 
-          scientific research, including electrophysiology, fluorescence microscopy, omics, and other
-          experimental data.
+          @Graph is a macOS application for scientific data: graphs of recordings and other
+          time series, images and image stacks, spreadsheets, and charts, with the measurements,
+          curve fits, and statistics that turn them into results. It is intuitive enough for
+          students and teachers, and rigorous enough for research in academia or industry.
+        </p>
+        <p>
+          Version 0.9 adds six toolkits, each a set of tools for one field of science:
+          Electrophysiology, Pharmacology &amp; Biochemistry, Biosignals, Spectroscopy,
+          Flow Cytometry, and Astronomy. They come with @Graph at no extra cost, and the
+          results of every toolkit flow into the same graphs, charts, and statistics.
         </p>
       </section>
       <!-- FEATURES -->
@@ -252,65 +262,164 @@
         <h2 id="features-heading">Features</h2>
         <div class="features">
           <article class="card">
-            <h3>High-performance plotting</h3>
+            <h3>Fast, interactive graphs</h3>
             <p>
-              Render large datasets smoothly with interactive graphs and charts.
+              Long, multi-channel recordings drawn as sweeps: zoom, place cursors, filter,
+              correct baselines, and measure, with smooth redraws even for large datasets.
             </p>
           </article>
           <article class="card">
-            <h3>Fluorescence microscopy analysis</h3>
+            <h3>Microscopy and imaging</h3>
             <p>
-              Open z-series and time-series images, plot ROI values, and quantify changes
-              in fluorescence in one application.
+              Open Z-series and time-series images, correct uneven illumination, drift, and
+              background, find spots and beads, draw or detect ROIs, and measure
+              &Delta;F/F<sub>0</sub> traces that go straight to graphs. Export movies as MP4,
+              ProRes, or TIFF stacks.
             </p>
           </article>
           <article class="card">
             <h3>Easy &ldquo;omics&rdquo; visualization</h3>
             <p>
-              Volcano plots, heatmaps, dot plots, UpSet, Venn diagrams and many others.
+              Volcano and MA plots, clustered heatmaps, dot plots, UpSet and Venn diagrams,
+              PCA, GSEA, and Manhattan plots, from GCT, Loom, AnnData, 10x Genomics, and
+              GEO files.
             </p>
           </article>
           <article class="card">
             <h3>Scientific file support</h3>
             <p>
-              Import a wide variety of research data formats, including for neurophysiology,
-              imaging, and genomics data sets.
+              Open the files you already have: neurophysiology and physiology recordings,
+              microscopy images, statistics packages, genomics, flow cytometry, plate readers,
+              spectroscopy, and astronomy.
               <a href="#files-heading">See every file type</a>.
             </p>
           </article>
           <article class="card">
             <h3>Analysis tools</h3>
             <p>
-              Process, measure, and extract meaning from experimental data:
-              filters, baselines, peaks, curve fitting, and spectra (FFT, or
-              Lomb–Scargle for unevenly sampled data).
+              Filters, baselines, peak detection, curve fitting to any formula, and spectra
+              (FFT, or Lomb&ndash;Scargle for unevenly sampled data), with results that go
+              to the Data Log, a spreadsheet, or statistics.
             </p>
           </article>
           <article class="card">
-            <h3>Statistics tools</h3>
+            <h3>Rigorous statistics</h3>
             <p>
-              @Graph automatically identifies and applies appropriate
-              statistical tests to help you better understand your data.
+              The effect size and its confidence interval come first. Choose what to compare
+              (means, trimmed means, medians, or ranks), and @Graph runs the matching test,
+              checks your data, and suggests alternatives without forcing them. Mixed models
+              handle repeated and nested data and values past a detection limit.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Charts that stay in sync</h3>
+            <p>
+              Bar, box, violin, ridge, line, scatter, survival, and estimation plots, with
+              effect-size brackets drawn on the chart. Every chart has a live spreadsheet:
+              edit one and the other updates.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Batch processing and protocols</h3>
+            <p>
+              Run one analysis on a folder of files and get one report, or save a list of
+              steps as a protocol and run it on any window. The numbers match the
+              inspector&rsquo;s.
             </p>
           </article>
           <article class="card">
             <h3>AI Assistant</h3>
             <p>
-              Choose among several AI assistants and work with your data using
-              plain English.
+              Ask about your open files in plain English, or tell the assistant what to do.
+              It runs @Graph&rsquo;s own analyses, so the numbers are computed, not guessed.
+              Use Apple Private Cloud Compute, or Claude, ChatGPT, Gemini, or Grok with your
+              own API key.
             </p>
           </article>
           <article class="card">
-            <h3>Export elegant charts and graphs</h3>
+            <h3>Lab Tools</h3>
             <p>
-              Easily export your data to a variety of image formats, including vector-based SVG.
+              Calculators for everyday lab work, from the Nernst equation and dose conversion
+              between species to qPCR efficiency, Beer&ndash;Lambert, and airmass.
             </p>
           </article>
-
+          <article class="card">
+            <h3>Export elegant figures and data</h3>
+            <p>
+              Vector PDF and SVG, or PNG, TIFF, JPEG, and GIF; Copy as PDF and Send to Keynote.
+              Save data as ABF, AxoGraph, HDF5, MATLAB, NWB, or CSV.
+            </p>
+          </article>
           <article class="card">
             <h3>Native for macOS</h3>
             <p>
-              Built for Apple silicon for an intuitive and modern macOS experience.
+              Built for Apple silicon, with VoiceOver support and recovery copies of unsaved
+              work, for an intuitive and modern macOS experience.
+            </p>
+          </article>
+        </div>
+      </section>
+      <!-- TOOLKITS -->
+      <section class="section" aria-labelledby="toolkits-heading">
+        <h2 id="toolkits-heading">Toolkits</h2>
+        <p>
+          Six toolkits add the tools of particular fields. All six are free, come with
+          @Graph, and are shown at first: their tools are tabs in the inspector, image tools,
+          windows in the Toolkits menu, and calculators in Lab Tools. Hide the ones you
+          don&rsquo;t use in Settings &rsaquo; Toolkits; Find a Tool still finds every tool,
+          and Batch Processing and Protocols still run them.
+        </p>
+        <div class="features">
+          <article class="card">
+            <h3>Electrophysiology</h3>
+            <p>
+              Action potential and synaptic event detection, LFP and spike-train analysis,
+              VI and IV plots, firing properties, sag and slow AHPs, spike sorting, membrane
+              tests, and series-resistance (R<sub>s</sub>) and junction-potential correction
+              for patch-clamp and extracellular recordings.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Pharmacology &amp; Biochemistry</h3>
+            <p>
+              Dose&ndash;response and Schild analysis, enzyme kinetics and binding, initial
+              rates, pharmacokinetics, qPCR and melt curves, Western blot and gel densitometry,
+              plate maps for 6- to 1,536-well plate readers with standard curves and plate
+              quality checks, plates read from a photo, and colony counting on dishes.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Biosignals</h3>
+            <p>
+              ECG intervals and heart-rate variability, breathing and respiratory sinus
+              arrhythmia, EEG band power, and EMG envelopes and bursts, for people and
+              animals from mice to hummingbirds.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Spectroscopy</h3>
+            <p>
+              Spectral baselines, peak fitting with Gaussian, Lorentzian, and pseudo-Voigt
+              shapes, spectra converted between wavelength, wavenumber, energy, and Raman
+              shift, wavelength calibration, mass spectra with ion chromatograms and isotope
+              patterns, and spectra read from a photo of a spectroscope.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Flow Cytometry</h3>
+            <p>
+              A Cytometry window for FCS files and FlowJo workspaces: every event compensated
+              on Logicle and arcsinh axes, gating with population statistics, spillover and
+              spectral unmixing, PeacoQC, FlowSOM and PhenoGraph clusters, UMAP and t-SNE,
+              and differential abundance between groups.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Astronomy</h3>
+            <p>
+              FITS images with sky coordinates and auto stretch, CCD calibration, stacking
+              and color pictures, plate solving with star names under the pointer, aperture
+              photometry, and transit search and fitting.
             </p>
           </article>
         </div>
@@ -325,7 +434,7 @@
           <article class="card">
             <h3>@Graph documents</h3>
             <ul class="format-list">
-              <li><span>Graphs, charts, images and spreadsheets saved by @Graph or @Stat</span><span class="ext">.@graph</span></li>
+              <li><span>Graphs, charts, images, spreadsheets and plate maps saved by @Graph or @Stat</span><span class="ext">.@graph</span></li>
             </ul>
           </article>
           <article class="card">
@@ -370,6 +479,7 @@
               <li><span>Bitplane Imaris</span><span class="ext">.ims</span></li>
               <li><span>BMP, GIF and WebP</span><span class="ext">.bmp .gif .webp</span></li>
               <li><span>Bruker Prairie View (T-series, Z-series, single images)</span><span class="ext">.xml</span></li>
+              <li><span>ENVI rasters (hyperspectral cubes; the .hdr and its binary file)</span><span class="ext">.hdr .img .bsq .bil .bip</span></li>
               <li><span>HEIC and HEIF (iPhone photos)</span><span class="ext">.heic .heif</span></li>
               <li><span>JPEG 2000</span><span class="ext">.jp2</span></li>
               <li><span>Leica</span><span class="ext">.lif</span></li>
@@ -421,11 +531,23 @@
               <li><span>AnnData</span><span class="ext">.h5ad</span></li>
               <li><span>CLS class labels for a GCT file</span><span class="ext">.cls</span></li>
               <li><span>Flow cytometry (FCS)</span><span class="ext">.fcs .lmd</span></li>
+              <li><span>FlowJo 10 workspace (gates, with its FCS files)</span><span class="ext">.wsp</span></li>
               <li><span>GCT expression matrix</span><span class="ext">.gct</span></li>
               <li><span>GEO series matrix</span><span class="ext">.txt</span></li>
               <li><span>Loom</span><span class="ext">.loom</span></li>
             </ul>
-            <p class="format-note">GCT, Loom, AnnData, 10x Genomics and GEO series matrix files open as heatmaps, and flow cytometry files as tables. A 10x matrix opens from its Cell Ranger .h5, its folder, or its matrix.mtx(.gz) with the features and barcodes beside it.</p>
+            <p class="format-note">GCT, Loom, AnnData, 10x Genomics and GEO series matrix files open as heatmaps. Flow cytometry files open in a Cytometry window (as tables when the Flow Cytometry toolkit is hidden), and a FlowJo workspace in one with its samples and gates (even with the toolkit hidden, since a workspace has no table form). A 10x matrix opens from its Cell Ranger .h5, its folder, or its matrix.mtx(.gz) with the features and barcodes beside it.</p>
+          </article>
+          <article class="card">
+            <h3>Plate readers</h3>
+            <ul class="format-list">
+              <li><span>Gen5 (BioTek, Agilent)</span><span class="ext">.txt .csv</span></li>
+              <li><span>Magellan (Tecan)</span><span class="ext">.xlsx</span></li>
+              <li><span>MARS (BMG LABTECH)</span><span class="ext">.csv</span></li>
+              <li><span>SoftMax Pro text export (Molecular Devices)</span><span class="ext">.txt</span></li>
+              <li><span>SparkControl and i-control (Tecan)</span><span class="ext">.xlsx .csv</span></li>
+            </ul>
+            <p class="format-note">Recognized by what the file says, a reader&rsquo;s export opens as a plate map (Toolkits › Pharmacology &amp; Biochemistry › Plate Map), whose Read Values sheet chooses its reads or opens the file as a table instead. Other plate-shaped tables and plater CSV files open as tables, and Read Values from File… in a plate map reads them.</p>
           </article>
           <article class="card">
             <h3>Chemistry and spectroscopy</h3>
@@ -448,11 +570,11 @@
       <section class="section" aria-labelledby="guide-heading">
         <h2 id="guide-heading">User Guide</h2>
         <p>
-          Getting started, file formats, graphs and charts, statistics,
-          electrophysiology and imaging analysis, omics plots, the AI Assistant
-          and keyboard shortcuts: the complete
-          <a href="/AtGraph_guide.html">@Graph User Guide</a>, the same guide as
-          Help › @Graph User Guide in the app.
+          Getting started, file formats, graphs, charts and spreadsheets, imaging,
+          each of the six toolkits, statistics, omics plots, batch processing and
+          protocols, the AI Assistant, and keyboard shortcuts: the complete
+          <a href="/AtGraph_guide.html">@Graph User Guide</a> for version 0.9, the
+          same guide as Help › @Graph User Guide in the app.
         </p>
       </section>
       <!-- MORE APPS -->
