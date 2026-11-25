@@ -54,7 +54,7 @@ em { font-style: italic; }
 <header>
   <p class="crumb"><a href="index.html">@Cam</a> › User Guide</p>
   <h1>@Cam User Guide</h1>
-  <p class="tagline">The same guide as Help › @Cam User Guide in the app (version 0.9).</p>
+  <p class="tagline">The same guide as Help › @Cam User Guide in the app (version 0.9.0).</p>
 </header>
 <nav class="toc" id="contents" aria-label="Contents">
 <ol>
@@ -123,7 +123,7 @@ em { font-style: italic; }
 <h3>Which Cameras Work</h3>
 <ul>
 <li><em>Webcam-style (UVC) cameras</em>: most inexpensive microscope cameras (C-mount and eyepiece cameras from AmScope, OMAX, Swift, ToupTek's UVC models and others) work like a webcam. They give 8-bit color, or grayscale (Image tab › Format). Their controls appear when the camera reports them; a value under an automatic mode is grayed out until that mode is off.</li>
-<li><em>Machine-vision cameras</em> (USB3 Vision and GigE Vision, through the open-source Aravis library): full control of exposure, gain, black level, bit depth (8 or 16-bit), binning, region of interest, triggering and I/O lines. @Cam shows unpacked monochrome formats (Mono8, Mono10, Mono12, Mono14, Mono16) and color: Bayer formats converted to 8-bit color (bilinear), and RGB8 and BGR8 as they are. The All Settings tab lists every feature the camera describes (Beginner, Expert or Guru).</li>
+<li><em>Machine-vision cameras</em> (USB3 Vision and GigE Vision, through the open-source Aravis library): full control of exposure, gain, black level, bit depth (8 or 16-bit), binning, region of interest, triggering and I/O lines. @Cam shows monochrome formats (Mono8 to Mono16, including the bit-packed Mono10p, Mono12p and Mono12Packed) and color: Bayer formats, packed or not, converted to 8-bit color (bilinear); RGB and BGR, with or without alpha and up to 16 bits a channel; and YUV and YCbCr (4:1:1, 4:2:2 and 4:4:4). Older cameras that use GigE Vision 1.x names (ExposureTimeAbs, GainRaw and others) get the same controls; a setting a camera counts in its own steps is labeled (camera steps). The All Settings tab lists every feature the camera describes (Beginner, Expert or Guru).</li>
 <li><em>Teledyne Lumenera INFINITY cameras</em> with USB3 Vision firmware, such as the INFINITY8-2. See Switch an INFINITY Camera's Mode, below.</li>
 <li><em>The Mac's own camera</em> and an <em>iPhone</em> (Continuity Camera) work too, with the automatic settings macOS gives them.</li>
 <li><em>Any other camera</em>, through a bridge: a program that serves it to @Cam over the network (see Bridges: Other Cameras).</li>
@@ -273,6 +273,12 @@ em { font-style: italic; }
 <p>@Cam works out the sensor pixel size from the line, so the scale stays right when you change the objective setting. Check the calibration once against a stage micrometer even when you know the pixel size.</p>
 <h3>A Camera Without a Pixel Size</h3>
 <p>A camera @Cam hasn't had a pixel size for (a new camera, or any camera after @Cam › Settings… › Cameras › Reset for All Cameras…) never takes another camera's. Its Sensor pixel size field says &quot;not set&quot;, no scale bar is drawn, measurements are in pixels, and its images are saved without a scale, with &quot;Scale=not calibrated&quot; in their description.</p>
+<h3>A Camera With an Ordinary Lens</h3>
+<p>A camera with its own lens (a CCTV lens, a C- or CS-mount lens, a webcam) has no fixed scale: how much of the subject a pixel covers depends on how far away the subject is, and a wide-angle lens also stretches the edges of the picture. For such a camera:</p>
+<ol>
+<li>In View tab › Scale Bar, set Optics to Camera lens.</li>
+<li>@Cam then draws no scale bar, measures in pixels and saves images without a scale, with &quot;Scale=none (camera lens)&quot; in their description. The setting is remembered for that camera, and the pixel size is kept: set Optics back to Microscope when the camera goes on a microscope.</li>
+</ol>
 <h3>The Scale Bar</h3>
 <table>
 <thead><tr><th>Control</th><th>What it does</th></tr></thead>
@@ -604,7 +610,7 @@ em { font-style: italic; }
 </section>
 <section class="page" id="files-metadata-other-apps">
 <h2>Files, Metadata &amp; Other Apps</h2>
-<p>Every image @Cam saves records how it was taken: the camera, exposure, gain, the corrections applied, the calibration (&quot;Scale=… µm/px&quot;, or &quot;Scale=not calibrated&quot; when the camera's pixel size isn't set), the objective and the session notes, in the image's description. The notes are also in the standard caption, keywords and author fields that Finder, Spotlight, Preview and Photos read.</p>
+<p>Every image @Cam saves records how it was taken: the camera, exposure, gain, the corrections applied, the calibration (&quot;Scale=… µm/px&quot;, &quot;Scale=not calibrated&quot; when the camera's pixel size isn't set, or &quot;Scale=none (camera lens)&quot;), the objective and the session notes, in the image's description. The notes are also in the standard caption, keywords and author fields that Finder, Spotlight, Preview and Photos read.</p>
 <h3>Where Each Format Keeps the Scale</h3>
 <table>
 <thead><tr><th>Format</th><th>The scale is kept as</th><th>In @Graph</th></tr></thead>
@@ -692,15 +698,19 @@ em { font-style: italic; }
 <tr><td>The image is black or very dark</td><td>Check the light path and the camera port on the microscope; set Auto exposure on, or raise the exposure time or gain.</td></tr>
 <tr><td>The image is gray and flat</td><td>Display contrast: try Auto contrast, or drag the black and white points on the histogram. View tab › Display › Reset Display returns to the defaults.</td></tr>
 <tr><td>&quot;Waiting for the first image…&quot; and nothing comes</td><td>With Trigger mode On the camera waits for a trigger: click Software Trigger, or set Trigger mode Off (Trigger &amp; I/O tab).</td></tr>
-<tr><td>The image area says the pixel format can't be shown</td><td>The camera is set to a packed pixel format. Choose another under Image tab › Format, which lists the formats @Cam can show.</td></tr>
+<tr><td>The image area says the pixel format can't be shown</td><td>The camera is set to a format @Cam doesn't read. Choose another under Image tab › Format, which lists the formats @Cam can show.</td></tr>
+<tr><td>&quot;Another program is controlling this camera&quot;</td><td>A GigE camera takes orders from one program at a time. Quit the other program (another copy of @Cam, or the camera maker's software), then choose the camera again.</td></tr>
+<tr><td>A GigE camera is listed but won't open</td><td>Its address may not fit the Mac's network (for example 192.168.1.10 on a port at 169.254.x.x). Choose Camera › Fix GigE Camera Address…: @Cam finds the camera, suggests an address on the port's network and sends it. Leave &quot;find its own address from now on&quot; checked so the camera picks a fitting address by itself after a restart. @Cam also offers this when a GigE camera fails to open.</td></tr>
+<tr><td>The camera is in an odd format or mode left by another program</td><td>Info tab › Settings Stored in the Camera › Load Factory Settings… puts it back the way it left the factory. Save… stores the current settings in the camera, and Starts with chooses the set it uses when switched on.</td></tr>
+<tr><td>Frames arrive torn or incomplete with two GigE cameras</td><td>Both cameras share the network link. In Info tab › Network (GigE), raise Delay between packets, or turn on Limit bandwidth, on each camera until Incomplete frames stops rising.</td></tr>
 <tr><td>Saved camera-values images look dark</td><td>They keep the camera's own values: a dim 8-bit image may use only a few dozen of its 256 levels, and 12-bit values in a 16-bit file look dark too. Fiji and @Graph open a TIFF with the black and white points it was taken with; Preview and Finder thumbnails show the values as they are. For more levels, lengthen the exposure or raise the gain, or choose a 12- or 16-bit format (Image tab › Format) where the camera offers one. For a picture to show, save PNG, JPEG or TIFF as displayed.</td></tr>
 <tr><td>Low frame rate</td><td>Long exposures limit it, and Auto exposure may lower it. Choose a lower resolution or binning, a smaller region of interest, or turn off Smooth live view and focus peaking.</td></tr>
-<tr><td>Measurements are in pixels</td><td>Set the objective, adapter and pixel size in View tab › Scale Bar, or calibrate with a stage micrometer. A camera whose pixel size isn't set measures in pixels and saves no scale.</td></tr>
+<tr><td>Measurements are in pixels</td><td>Set the objective, adapter and pixel size in View tab › Scale Bar, or calibrate with a stage micrometer. A camera whose pixel size isn't set, or one set to Optics › Camera lens, measures in pixels and saves no scale.</td></tr>
 <tr><td>A camera control is missing</td><td>@Cam shows only the controls a camera reports. Webcam-style cameras through macOS have only the automatic modes macOS offers.</td></tr>
 <tr><td>Mosaic tiles don't line up</td><td>Use manual exposure, overlap fields by about a third, and avoid fields of empty background.</td></tr>
 </tbody>
 </table>
-<p>Info tab › Maintenance has Refresh Settings (reads every control from the camera again), Restore Camera Defaults for webcam-style cameras that offer it, and Reset Camera for machine-vision cameras, which restarts the camera; it reconnects by itself.</p>
+<p>Info tab › Maintenance has Refresh Settings (reads every control from the camera again), Restore Camera Defaults for webcam-style cameras that offer it, and Reset Camera for machine-vision cameras, which restarts the camera; it reconnects by itself. Reset Camera keeps the camera's stored settings; to go back to the factory's, use Info tab › Settings Stored in the Camera › Load Factory Settings….</p>
 <h3>Report a Problem</h3>
 <ol>
 <li>Choose Help › Report a Problem… or Help › Request a Feature…. An email to support@atgraph.app opens in your mail app, with @Cam's version, your Mac and macOS version, and the open camera (not its serial number or the name set in it) filled in.</li>
