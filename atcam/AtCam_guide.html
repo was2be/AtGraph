@@ -105,7 +105,7 @@ em { font-style: italic; }
 <tr><td>Camera</td><td>Two cameras, frame rate, exposure, gain, black level, focus aid, white balance</td></tr>
 <tr><td>Image</td><td>Format, region of interest, orientation, shading correction, in-camera processing</td></tr>
 <tr><td>View</td><td>Scale bar, eyepiece overlay, display</td></tr>
-<tr><td>Trigger &amp; I/O</td><td>Trigger, strobe and I/O lines (machine-vision cameras only)</td></tr>
+<tr><td>Trigger &amp; I/O</td><td>Trigger, light output, strobe and I/O lines (machine-vision cameras only)</td></tr>
 <tr><td>Capture</td><td>Session notes, saving, snapshot, movie, presets</td></tr>
 <tr><td>Tools</td><td>Time-lapse, focus stack, mosaic, merge channels</td></tr>
 <tr><td>Measure &amp; Annotate</td><td>Measuring tools, results, Find Particles, annotations</td></tr>
@@ -123,7 +123,7 @@ em { font-style: italic; }
 <h3>Which Cameras Work</h3>
 <ul>
 <li><em>Webcam-style (UVC) cameras</em>: most inexpensive microscope cameras (C-mount and eyepiece cameras from AmScope, OMAX, Swift, ToupTek's UVC models and others) work like a webcam. They give 8-bit color, or grayscale (Image tab › Format). Their controls appear when the camera reports them; a value under an automatic mode is grayed out until that mode is off.</li>
-<li><em>Machine-vision cameras</em> (USB3 Vision and GigE Vision, through the open-source Aravis library): full control of exposure, gain, black level, bit depth (8 or 16-bit), binning, region of interest, triggering and I/O lines. @Cam shows monochrome formats (Mono8 to Mono16, including the bit-packed Mono10p, Mono12p and Mono12Packed) and color: Bayer formats, packed or not, converted to 8-bit color (bilinear); RGB and BGR, with or without alpha and up to 16 bits a channel; and YUV and YCbCr (4:1:1, 4:2:2 and 4:4:4). Older cameras that use GigE Vision 1.x names (ExposureTimeAbs, GainRaw and others) get the same controls; a setting a camera counts in its own steps is labeled (camera steps). The All Settings tab lists every feature the camera describes (Beginner, Expert or Guru).</li>
+<li><em>Machine-vision cameras</em> (USB3 Vision and GigE Vision, through the open-source Aravis library): full control of exposure, gain, black level, bit depth (8 or 16-bit), binning, region of interest, triggering and I/O lines. @Cam shows monochrome formats (Mono8 to Mono16, including the bit-packed Mono10p, Mono12p and Mono12Packed) and color: Bayer formats, packed or not, converted to 8-bit color (bilinear); RGB and BGR, with or without alpha and up to 16 bits a channel; and YUV and YCbCr (4:1:1, 4:2:2 and 4:4:4). Polarization cameras (a polarizer on each pixel, in groups of four) show the unpolarized image: each group is averaged into one pixel, at half the width and height, and the scale counts it as 2 × 2 binning. Older cameras that use GigE Vision 1.x names (ExposureTimeAbs, GainRaw and others) get the same controls; a setting a camera counts in its own steps is labeled (camera steps). The All Settings tab lists every feature the camera describes (Beginner, Expert or Guru).</li>
 <li><em>Teledyne Lumenera INFINITY cameras</em> with USB3 Vision firmware, such as the INFINITY8-2. See Switch an INFINITY Camera's Mode, below.</li>
 <li><em>The Mac's own camera</em> and an <em>iPhone</em> (Continuity Camera) work too, with the automatic settings macOS gives them.</li>
 <li><em>Any other camera</em>, through a bridge: a program that serves it to @Cam over the network (see Bridges: Other Cameras).</li>
@@ -159,6 +159,14 @@ em { font-style: italic; }
 <li>Click Software Trigger. The camera takes exactly one exposure each time; no cable is needed.</li>
 </ol>
 <p>Hardware triggers and strobe outputs use the camera's I/O port; the I/O Lines section lists each line as the camera reports it. To save one image per trigger pulse, run a time-lapse set to Every frame (Tools tab).</p>
+<h3>Drive a Light From the Camera</h3>
+<p>A camera with output lines can switch an LED or flash with each exposure, so the sample is lit only while the camera exposes (less bleaching and heat). Wire the light's trigger input to one of the camera's output pins (see its manual), then:</p>
+<ol>
+<li>In Trigger &amp; I/O tab › Light Output, choose the Output line it is wired to.</li>
+<li>Set Light to On during exposure, or to Pulse for a flash of set length: type the Delay after exposure starts and the Pulse length, in ms. Pulse appears when the camera has timers.</li>
+<li>Check it with Trigger mode On and Software Trigger: the light should flash once per click. Off leaves the line low.</li>
+</ol>
+<p>Light Output uses the parts all standard cameras share (an output line, its source, and a timer). Cameras with their own strobe controls (Lumenera, Allied Vision, The Imaging Source) also show them in the Strobe section; use one or the other.</p>
 <h3>Switch an INFINITY Camera's Mode</h3>
 <p>An INFINITY camera's firmware has two modes: USB3 Vision, used by @Cam, and Infinity, used by Teledyne's INFINITY ANALYZE. A camera in Infinity mode can't be opened until you switch it.</p>
 <ol>
@@ -277,7 +285,7 @@ em { font-style: italic; }
 <p>A camera with its own lens (a CCTV lens, a C- or CS-mount lens, a webcam) has no fixed scale: how much of the subject a pixel covers depends on how far away the subject is, and a wide-angle lens also stretches the edges of the picture. For such a camera:</p>
 <ol>
 <li>In View tab › Scale Bar, set Optics to Camera lens.</li>
-<li>@Cam then draws no scale bar, measures in pixels and saves images without a scale, with &quot;Scale=none (camera lens)&quot; in their description. The setting is remembered for that camera, and the pixel size is kept: set Optics back to Microscope when the camera goes on a microscope.</li>
+<li>@Cam then draws no scale bar, measures in pixels and saves images without a scale, with &quot;Scale=none (camera lens)&quot; in their description. The setting is remembered for that camera, and the pixel size is kept: set Optics back to Microscope when the camera goes on a microscope. A Mac's built-in camera and an iPhone (Continuity Camera) start on Camera lens.</li>
 </ol>
 <h3>The Scale Bar</h3>
 <table>
@@ -700,8 +708,9 @@ em { font-style: italic; }
 <tr><td>&quot;Waiting for the first image…&quot; and nothing comes</td><td>With Trigger mode On the camera waits for a trigger: click Software Trigger, or set Trigger mode Off (Trigger &amp; I/O tab).</td></tr>
 <tr><td>The image area says the pixel format can't be shown</td><td>The camera is set to a format @Cam doesn't read. Choose another under Image tab › Format, which lists the formats @Cam can show.</td></tr>
 <tr><td>&quot;Another program is controlling this camera&quot;</td><td>A GigE camera takes orders from one program at a time. Quit the other program (another copy of @Cam, or the camera maker's software), then choose the camera again.</td></tr>
-<tr><td>A GigE camera is listed but won't open</td><td>Its address may not fit the Mac's network (for example 192.168.1.10 on a port at 169.254.x.x). Choose Camera › Fix GigE Camera Address…: @Cam finds the camera, suggests an address on the port's network and sends it. Leave &quot;find its own address from now on&quot; checked so the camera picks a fitting address by itself after a restart. @Cam also offers this when a GigE camera fails to open.</td></tr>
+<tr><td>A GigE camera is listed but won't open</td><td>Its address may not fit the Mac's network (for example 192.168.1.10 on a port at 169.254.x.x). Choose Camera › Fix GigE Camera Address…: @Cam finds the camera, suggests an address on the port's network and sends it, and from its next start the camera finds its own address again, so it can't go back to the one that didn't fit. @Cam also offers this when a GigE camera fails to open. A camera on another network answers only by broadcast: with the Mac's firewall on, @Cam must be allowed incoming connections. While a GigE camera is still getting its address after being plugged in, @Cam shows &quot;Connecting to the camera…&quot; instead.</td></tr>
 <tr><td>The camera is in an odd format or mode left by another program</td><td>Info tab › Settings Stored in the Camera › Load Factory Settings… puts it back the way it left the factory. Save… stores the current settings in the camera, and Starts with chooses the set it uses when switched on.</td></tr>
+<tr><td>A GigE camera takes half a minute to come back after it is plugged in</td><td>Both ends look for a network address each time: the Mac's port and the camera each wait for a DHCP server a direct cable doesn't have. For the camera: Info tab › Network (GigE) › Keep this address (it then keeps its address when switched off; turn it off to have it look again). For the Mac: System Settings › Network › the camera's Ethernet port › Details… › TCP/IP › Configure IPv4: Manually, IP Address 169.254.1.1, Subnet Mask 255.255.0.0, no router. Use that port for cameras only. Meanwhile @Cam shows &quot;Connecting to the camera…&quot; and keeps trying.</td></tr>
 <tr><td>Frames arrive torn or incomplete with two GigE cameras</td><td>Both cameras share the network link. In Info tab › Network (GigE), raise Delay between packets, or turn on Limit bandwidth, on each camera until Incomplete frames stops rising.</td></tr>
 <tr><td>Saved camera-values images look dark</td><td>They keep the camera's own values: a dim 8-bit image may use only a few dozen of its 256 levels, and 12-bit values in a 16-bit file look dark too. Fiji and @Graph open a TIFF with the black and white points it was taken with; Preview and Finder thumbnails show the values as they are. For more levels, lengthen the exposure or raise the gain, or choose a 12- or 16-bit format (Image tab › Format) where the camera offers one. For a picture to show, save PNG, JPEG or TIFF as displayed.</td></tr>
 <tr><td>Low frame rate</td><td>Long exposures limit it, and Auto exposure may lower it. Choose a lower resolution or binning, a smaller region of interest, or turn off Smooth live view and focus peaking.</td></tr>
